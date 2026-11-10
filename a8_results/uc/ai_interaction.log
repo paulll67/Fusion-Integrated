@@ -1,0 +1,7 @@
+Assignment 8 strategy: UC
+Model: qwen3.5:4b (Q4_K_M), Ollama local API
+Session: fresh UC session
+Prompt scope: derive specification-based UC main, alternative and exception-flow test obligations from the Leave Use Case Specification; produce a compact frozen design before implementation inspection.
+Implementation exposure: none during design freeze.
+Result: UC_DESIGN.json was frozen and the six backend tests in tests/a8/uc/ were executed unchanged.
+Repair prompts used: 0

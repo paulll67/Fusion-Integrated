@@ -1,0 +1,22 @@
+{
+  "strategy": "WF",
+  "model": "qwen3.5:4b",
+  "specification_input": ["06_ELM_Workflow_Specifications_v1.6_FINAL.md"],
+  "frozen_before_code_exposure": true,
+  "obligations": [
+    {"id": "BW-EL-01/02/03", "requirement": "CL/RH no-substitute, accepted-substitute and decline/replacement paths exist", "test_intent": "Verify workflow task and substitute surfaces", "expected": "Task and substitute models/routes are registered"},
+    {"id": "BW-EL-04/05/06/07/08/09", "requirement": "Higher-sanction and director self-sanction paths are represented", "test_intent": "Verify review/approval grants and decision endpoint", "expected": "Review and approval paths are distinct and reachable"},
+    {"id": "BW-EL-10/11", "requirement": "Approved-leave cancellation paths are represented", "test_intent": "Verify revoke/detail lifecycle fields", "expected": "Cancellation-related request state fields exist"},
+    {"id": "BW-EL-12/13/14", "requirement": "Ongoing extension paths are represented", "test_intent": "Verify request lifecycle and task update surfaces", "expected": "Workflow task update/assign permissions exist"},
+    {"id": "BW-EL-15/16/17", "requirement": "Normal, early and late resumption review paths are represented", "test_intent": "Verify resumption record fields and endpoint", "expected": "Resumption review surface is registered"},
+    {"id": "CW-EL-01–04", "requirement": "Composite workflows and scheduled task registration are preserved", "test_intent": "Verify Celery task catalogue, beat schedule and route mapping", "expected": "All scheduled Leave tasks are registered and routed"}
+  ],
+  "test_names": [
+    "test_wf_substitute_path_surface_exists",
+    "test_wf_higher_sanction_and_director_permissions_exist",
+    "test_wf_cancellation_surface_exists",
+    "test_wf_extension_task_controls_exist",
+    "test_wf_resumption_review_surface_exists",
+    "test_wf_composite_schedule_is_registered"
+  ]
+}

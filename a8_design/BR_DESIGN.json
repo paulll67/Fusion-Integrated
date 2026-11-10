@@ -1,0 +1,22 @@
+{
+  "strategy": "BR",
+  "model": "qwen3.5:4b",
+  "specification_input": ["04_ELM_Business_Rule_Specifications_v1.4_FINAL.md"],
+  "frozen_before_code_exposure": true,
+  "obligations": [
+    {"id": "BR-EL-001–013", "requirement": "Core leave eligibility, category and interval rules are represented", "test_intent": "Validate category and date guards", "expected": "Supported categories pass and invalid/reversed input fails"},
+    {"id": "BR-EL-014/015", "requirement": "Substitute consent and decline paths are represented", "test_intent": "Verify substitute response fields and permission route", "expected": "Substitute data can be serialized and routed"},
+    {"id": "BR-EL-016–020", "requirement": "Authority-specific decision paths are represented", "test_intent": "Verify review and approval permissions are distinct", "expected": "Review and approval grants are separately catalogued"},
+    {"id": "BR-EL-023/024", "requirement": "Cancellation and balance adjustment are represented", "test_intent": "Verify cancellation flag and lifecycle mutation surface", "expected": "Cancellation state fields and detail action exist"},
+    {"id": "BR-EL-031/032/033/038", "requirement": "Calendar/SLA threshold behavior is represented", "test_intent": "Verify calendar publication and SLA task configuration", "expected": "Calendar and SLA permissions, models and tasks exist"},
+    {"id": "BR-EL-034/036/037", "requirement": "Withdrawal, traceability and record integrity are represented", "test_intent": "Verify revoke permission, audit serializer and record API", "expected": "Revoke/history/record surfaces exist"}
+  ],
+  "test_names": [
+    "test_br_category_and_interval_guards",
+    "test_br_substitute_consent_surface",
+    "test_br_review_and_approval_grants_are_distinct",
+    "test_br_cancellation_lifecycle_fields_exist",
+    "test_br_calendar_and_sla_configuration_surface",
+    "test_br_withdrawal_audit_and_record_surfaces_exist"
+  ]
+}

@@ -1,0 +1,7 @@
+Assignment 8 strategy: WF
+Model: qwen3.5:4b (Q4_K_M), Ollama local API
+Session: fresh WF session
+Prompt scope: derive specification-based workflow path, transition and decision-outcome test obligations from the Leave Workflow Specification; produce a compact frozen design before implementation inspection.
+Implementation exposure: none during design freeze.
+Result: WF_DESIGN.json was frozen and the six backend tests in tests/a8/wf/ were executed unchanged.
+Repair prompts used: 0

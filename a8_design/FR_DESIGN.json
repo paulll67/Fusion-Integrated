@@ -1,0 +1,22 @@
+{
+  "strategy": "FR",
+  "model": "qwen3.5:4b",
+  "specification_input": ["01_ELM_Problem_Statement_v1.4_FINAL.md", "02_ELM_Functional_Requirement_Specification_v1.5_FINAL.md"],
+  "frozen_before_code_exposure": true,
+  "obligations": [
+    {"id": "CFR-EL-001/003", "requirement": "Supported leave categories and date inputs are constrained", "test_intent": "Validate the serializer category allow-list and date ordering guard", "expected": "Invalid category or reversed dates are rejected"},
+    {"id": "CFR-EL-011/012", "requirement": "Substitute workflow data is represented", "test_intent": "Verify substitute fields and assignment route are exposed", "expected": "Substitute assignment serializer and endpoint exist"},
+    {"id": "CFR-EL-016/022", "requirement": "Scoped request, balance and history access exists", "test_intent": "Verify scope selectors and registered permissions", "expected": "Ownership and staff-scope permissions are present"},
+    {"id": "CFR-EL-023", "requirement": "Printable/exportable leave application is supported", "test_intent": "Verify export permission and endpoint", "expected": "Export route and grant are registered"},
+    {"id": "CFR-EL-024/025/026/027/029", "requirement": "Administrative configuration and records are exposed", "test_intent": "Verify administrative permissions and API classes", "expected": "Policy, hierarchy, calendar, record and SLA surfaces exist"},
+    {"id": "CFR-EL-031/032", "requirement": "SLA reminder/escalation event processing is registered", "test_intent": "Verify scheduled task names and routing", "expected": "Both SLA task entry points are registered"}
+  ],
+  "test_names": [
+    "test_fr_registry_permission_catalog_is_complete",
+    "test_fr_serializer_rejects_invalid_category_and_dates",
+    "test_fr_scoping_uses_ownership_and_staff_grants",
+    "test_fr_required_api_surfaces_are_registered",
+    "test_fr_administrative_permissions_are_registered",
+    "test_fr_scheduled_sla_entry_points_are_registered"
+  ]
+}

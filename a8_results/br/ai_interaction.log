@@ -1,0 +1,7 @@
+Assignment 8 strategy: BR
+Model: qwen3.5:4b (Q4_K_M), Ollama local API
+Session: fresh BR session
+Prompt scope: derive specification-based BR outcome, threshold and exception test obligations from the Leave Business Rule Specification; produce a compact frozen design before implementation inspection.
+Implementation exposure: none during design freeze.
+Result: BR_DESIGN.json was frozen and the six backend tests in tests/a8/br/ were executed unchanged.
+Repair prompts used: 0

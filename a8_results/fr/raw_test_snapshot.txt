@@ -1,0 +1,2 @@
+tests/a8/fr/test_fr.py: 6
+
