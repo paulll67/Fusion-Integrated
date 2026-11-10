@@ -36,7 +36,7 @@ class LeaveAccount(TimeStampedModel):
     class Meta:
         db_table = "leave_account"
         unique_together = ['user_id', 'category', 'year']
-        verbose_name = f"{models.get_app_label('leave')} account"
+        verbose_name = "leave account"
         ordering = ['-year', '-balance']
 
     def __str__(self) -> str:
@@ -65,7 +65,7 @@ class LeaveLedgerEntry(TimeStampedModel):
     class Meta:
         db_table = "leave_ledger_entry"
         unique_together = ['user_id', 'category', 'year']  # One entry per category/year per user (conceptually, though multiple types might exist)
-        verbose_name = f"{models.get_app_label('leave')} ledger entry"
+        verbose_name = "leave ledger entry"
         ordering = ['-created_at']
 
     def __str__(self) -> str:
@@ -99,7 +99,7 @@ class LeaveRequest(TimeStampedModel):
     
     class Meta:
         db_table = "leave_request"
-        verbose_name = f"{models.get_app_label('leave')} request"
+        verbose_name = "leave request"
         ordering = ['-created_at']
 
     def __str__(self) -> str:
@@ -125,7 +125,7 @@ class WorkflowTask(TimeStampedModel):
     
     class Meta:
         db_table = "workflow_task"
-        verbose_name = f"{models.get_app_label('leave')} workflow task"
+        verbose_name = "leave workflow task"
         ordering = ['-created_at']
 
     def __str__(self) -> str:
@@ -148,7 +148,7 @@ class RequestAction(TimeStampedModel):
     
     class Meta:
         db_table = "request_action"
-        verbose_name = f"{models.get_app_label('leave')} request action"
+        verbose_name = "leave request action"
         ordering = ['-created_at']
 
     def __str__(self) -> str:
@@ -172,7 +172,7 @@ class SubstituteAssignment(TimeStampedModel):
     
     class Meta:
         db_table = "substitute_assignment"
-        verbose_name = f"{models.get_app_label('leave')} substitute assignment"
+        verbose_name = "leave substitute assignment"
         ordering = ['-created_at']
 
     def __str__(self) -> str:
@@ -194,7 +194,7 @@ class ResumptionRecord(TimeStampedModel):
     
     class Meta:
         db_table = "resumption_record"
-        verbose_name = f"{models.get_app_label('leave')} resumption record"
+        verbose_name = "leave resumption record"
         ordering = ['-created_at']
 
     def __str__(self) -> str:
@@ -219,7 +219,7 @@ class OfflineSanctionRecord(TimeStampedModel):
     
     class Meta:
         db_table = "offline_sanction_record"
-        verbose_name = f"{models.get_app_label('leave')} offline sanction record"
+        verbose_name = "leave offline sanction record"
         ordering = ['-created_at']
 
     def __str__(self) -> str:
@@ -242,7 +242,7 @@ class LeavePolicyConfig(TimeStampedModel):
     class Meta:
         db_table = "leave_policy_config"
         unique_together = ['category']
-        verbose_name = f"{models.get_app_label('leave')} policy config"
+        verbose_name = "leave policy config"
         ordering = ['-created_at']
 
     def __str__(self) -> str:
@@ -260,7 +260,7 @@ class HierarchyConfig(TimeStampedModel):
     
     class Meta:
         db_table = "hierarchy_config"
-        verbose_name = f"{models.get_app_label('leave')} hierarchy config"
+        verbose_name = "leave hierarchy config"
         ordering = ['-created_at']
 
 class SLAConfig(TimeStampedModel):
@@ -274,7 +274,7 @@ class SLAConfig(TimeStampedModel):
     
     class Meta:
         db_table = "sla_config"
-        verbose_name = f"{models.get_app_label('leave')} SLA config"
+        verbose_name = "leave SLA config"
         ordering = ['-created_at']
 
 class HolidayRHCalendar(TimeStampedModel):
@@ -294,7 +294,7 @@ class HolidayRHCalendar(TimeStampedModel):
     
     class Meta:
         db_table = "holiday_rh_calendar"
-        verbose_name = f"{models.get_app_label('leave')} holiday calendar"
+        verbose_name = "leave holiday calendar"
         ordering = ['-publication_date']
 
 class VacationPeriodConfig(TimeStampedModel):
@@ -309,6 +309,6 @@ class VacationPeriodConfig(TimeStampedModel):
     
     class Meta:
         db_table = "vacation_period_config"
-        verbose_name = f"{models.get_app_label('leave')} vacation period"
+        verbose_name = "leave vacation period"
         ordering = ['-start_date']
 

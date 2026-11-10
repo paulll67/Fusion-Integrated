@@ -17,7 +17,6 @@ from dataclasses import dataclass
 
 from fusion_auth.client import IamUnavailable, get_client
 from modules.directory.models import UserRef
-from modules.directory.services.sync import ensure_users_cached
 
 
 @dataclass(frozen=True)

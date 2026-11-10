@@ -213,7 +213,7 @@ Stores org-unit/designation/category routing facts.
     unit_head_role = serializers.CharField(max_length=100, required=True)
     establishment_step_required = serializers.BooleanField(default=False)
     director_self_sanction = serializers.BooleanField(default=False)
-    sanctioned_roles = serializers.ListField(child=serializers.CharField(), required=False, allow_blank=True)
+    sanctioned_roles = serializers.ListField(child=serializers.CharField(), required=False, allow_empty=True)
 
 # -- Holiday/RH Calendar Serializer --
 class HolidayRHCalendarSerializer(serializers.ModelSerializer):

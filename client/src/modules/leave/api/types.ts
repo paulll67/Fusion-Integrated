@@ -7,7 +7,11 @@
  * puts float arithmetic on a salary figure.
  */
 
-import { Page } from "./types";
+export interface Page<T> {
+  results: T[];
+  next: string | null;
+  previous: string | null;
+}
 
 /**
  * Leave Category Enum.

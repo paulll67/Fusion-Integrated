@@ -13,7 +13,7 @@ from typing import Optional
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 
-from modules.leave.models.base import TimeStampedModel, UserScopedModel
+from core.db.mixins import TimeStampedModel, UserScopedModel
 
 
 class HolidayRHCalendar(TimeStampedModel):
@@ -35,7 +35,7 @@ class HolidayRHCalendar(TimeStampedModel):
 
     name = models.CharField(max_length=255, unique=True)
     effective_from = models.DateField()
-    effective_to: Optional[date] = None  # Null implies perpetual validity
+    effective_to = models.DateField(null=True, blank=True)  # Null implies perpetual validity
     holidays = models.JSONField(default=list, validators=[MinValueValidator(0)])
     restricted_holidays = models.JSONField(default=list, validators=[MinValueValidator(0)])
 
