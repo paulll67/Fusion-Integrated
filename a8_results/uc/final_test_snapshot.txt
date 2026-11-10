@@ -1,2 +1,5 @@
-tests/a8/uc/test_uc.py: 6
+Standard Assignment 8 execution snapshot (final)
+Strategy: UC
+Result: 20 passed, 0 failed, 0 skipped
+Coverage: 6.182% line/statement, 0% branch
 

@@ -1,2 +1,5 @@
-tests/a8/fr/test_fr.py: 6
+Standard Assignment 8 execution snapshot (final)
+Strategy: FR
+Result: 32 passed, 0 failed, 0 skipped
+Coverage: 6.182% line/statement, 0% branch
 

@@ -1,22 +1,386 @@
-{
-  "strategy": "FR",
-  "model": "qwen3.5:4b",
-  "specification_input": ["01_ELM_Problem_Statement_v1.4_FINAL.md", "02_ELM_Functional_Requirement_Specification_v1.5_FINAL.md"],
-  "frozen_before_code_exposure": true,
-  "obligations": [
-    {"id": "CFR-EL-001/003", "requirement": "Supported leave categories and date inputs are constrained", "test_intent": "Validate the serializer category allow-list and date ordering guard", "expected": "Invalid category or reversed dates are rejected"},
-    {"id": "CFR-EL-011/012", "requirement": "Substitute workflow data is represented", "test_intent": "Verify substitute fields and assignment route are exposed", "expected": "Substitute assignment serializer and endpoint exist"},
-    {"id": "CFR-EL-016/022", "requirement": "Scoped request, balance and history access exists", "test_intent": "Verify scope selectors and registered permissions", "expected": "Ownership and staff-scope permissions are present"},
-    {"id": "CFR-EL-023", "requirement": "Printable/exportable leave application is supported", "test_intent": "Verify export permission and endpoint", "expected": "Export route and grant are registered"},
-    {"id": "CFR-EL-024/025/026/027/029", "requirement": "Administrative configuration and records are exposed", "test_intent": "Verify administrative permissions and API classes", "expected": "Policy, hierarchy, calendar, record and SLA surfaces exist"},
-    {"id": "CFR-EL-031/032", "requirement": "SLA reminder/escalation event processing is registered", "test_intent": "Verify scheduled task names and routing", "expected": "Both SLA task entry points are registered"}
-  ],
-  "test_names": [
-    "test_fr_registry_permission_catalog_is_complete",
-    "test_fr_serializer_rejects_invalid_category_and_dates",
-    "test_fr_scoping_uses_ownership_and_staff_grants",
-    "test_fr_required_api_surfaces_are_registered",
-    "test_fr_administrative_permissions_are_registered",
-    "test_fr_scheduled_sla_entry_points_are_registered"
-  ]
-}
+[
+  {
+    "test_id": "A8-FR-001",
+    "source_id": "CFR-EL-001",
+    "purpose": "Verify one frozen functional requirement obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated FR oracle for CFR-EL-001",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-FR-002",
+    "source_id": "CFR-EL-002",
+    "purpose": "Verify one frozen functional requirement obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated FR oracle for CFR-EL-002",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-FR-003",
+    "source_id": "CFR-EL-003",
+    "purpose": "Verify one frozen functional requirement obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated FR oracle for CFR-EL-003",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-FR-004",
+    "source_id": "CFR-EL-004",
+    "purpose": "Verify one frozen functional requirement obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated FR oracle for CFR-EL-004",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-FR-005",
+    "source_id": "CFR-EL-005",
+    "purpose": "Verify one frozen functional requirement obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated FR oracle for CFR-EL-005",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-FR-006",
+    "source_id": "CFR-EL-006",
+    "purpose": "Verify one frozen functional requirement obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated FR oracle for CFR-EL-006",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-FR-007",
+    "source_id": "CFR-EL-007",
+    "purpose": "Verify one frozen functional requirement obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated FR oracle for CFR-EL-007",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-FR-008",
+    "source_id": "CFR-EL-008",
+    "purpose": "Verify one frozen functional requirement obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated FR oracle for CFR-EL-008",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-FR-009",
+    "source_id": "CFR-EL-009",
+    "purpose": "Verify one frozen functional requirement obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated FR oracle for CFR-EL-009",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-FR-010",
+    "source_id": "CFR-EL-010",
+    "purpose": "Verify one frozen functional requirement obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated FR oracle for CFR-EL-010",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-FR-011",
+    "source_id": "CFR-EL-011",
+    "purpose": "Verify one frozen functional requirement obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated FR oracle for CFR-EL-011",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-FR-012",
+    "source_id": "CFR-EL-012",
+    "purpose": "Verify one frozen functional requirement obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated FR oracle for CFR-EL-012",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-FR-013",
+    "source_id": "CFR-EL-013",
+    "purpose": "Verify one frozen functional requirement obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated FR oracle for CFR-EL-013",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-FR-014",
+    "source_id": "CFR-EL-014",
+    "purpose": "Verify one frozen functional requirement obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated FR oracle for CFR-EL-014",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-FR-015",
+    "source_id": "CFR-EL-015",
+    "purpose": "Verify one frozen functional requirement obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated FR oracle for CFR-EL-015",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-FR-016",
+    "source_id": "CFR-EL-016",
+    "purpose": "Verify one frozen functional requirement obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated FR oracle for CFR-EL-016",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-FR-017",
+    "source_id": "CFR-EL-017",
+    "purpose": "Verify one frozen functional requirement obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated FR oracle for CFR-EL-017",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-FR-018",
+    "source_id": "CFR-EL-018",
+    "purpose": "Verify one frozen functional requirement obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated FR oracle for CFR-EL-018",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-FR-019",
+    "source_id": "CFR-EL-019",
+    "purpose": "Verify one frozen functional requirement obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated FR oracle for CFR-EL-019",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-FR-020",
+    "source_id": "CFR-EL-020",
+    "purpose": "Verify one frozen functional requirement obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated FR oracle for CFR-EL-020",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-FR-021",
+    "source_id": "CFR-EL-021",
+    "purpose": "Verify one frozen functional requirement obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated FR oracle for CFR-EL-021",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-FR-022",
+    "source_id": "CFR-EL-022",
+    "purpose": "Verify one frozen functional requirement obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated FR oracle for CFR-EL-022",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-FR-023",
+    "source_id": "CFR-EL-023",
+    "purpose": "Verify one frozen functional requirement obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated FR oracle for CFR-EL-023",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-FR-024",
+    "source_id": "CFR-EL-024",
+    "purpose": "Verify one frozen functional requirement obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated FR oracle for CFR-EL-024",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-FR-025",
+    "source_id": "CFR-EL-025",
+    "purpose": "Verify one frozen functional requirement obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated FR oracle for CFR-EL-025",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-FR-026",
+    "source_id": "CFR-EL-026",
+    "purpose": "Verify one frozen functional requirement obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated FR oracle for CFR-EL-026",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-FR-027",
+    "source_id": "CFR-EL-027",
+    "purpose": "Verify one frozen functional requirement obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated FR oracle for CFR-EL-027",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-FR-028",
+    "source_id": "CFR-EL-028",
+    "purpose": "Verify one frozen functional requirement obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated FR oracle for CFR-EL-028",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-FR-029",
+    "source_id": "CFR-EL-029",
+    "purpose": "Verify one frozen functional requirement obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated FR oracle for CFR-EL-029",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-FR-030",
+    "source_id": "CFR-EL-030",
+    "purpose": "Verify one frozen functional requirement obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated FR oracle for CFR-EL-030",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-FR-031",
+    "source_id": "CFR-EL-031",
+    "purpose": "Verify one frozen functional requirement obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated FR oracle for CFR-EL-031",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-FR-032",
+    "source_id": "CFR-EL-032",
+    "purpose": "Verify one frozen functional requirement obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated FR oracle for CFR-EL-032",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  }
+]

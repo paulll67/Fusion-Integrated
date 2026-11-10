@@ -1,7 +1,279 @@
-Assignment 8 strategy: WF
-Model: qwen3.5:4b (Q4_K_M), Ollama local API
-Session: fresh WF session
-Prompt scope: derive specification-based workflow path, transition and decision-outcome test obligations from the Leave Workflow Specification; produce a compact frozen design before implementation inspection.
-Implementation exposure: none during design freeze.
-Result: WF_DESIGN.json was frozen and the six backend tests in tests/a8/wf/ were executed unchanged.
-Repair prompts used: 0
+Assignment 8 AI interaction history — WF strategy
+Model: qwen3.5:4b (Ollama local, Q4_K_M)
+Session: fresh strategy-specific session
+Frozen base: 5453a6e
+
+PROMPT A (design; exact protocol text)
+You are the Assignment 8 test-design agent. Using only the allowed FR, UC, BR, or WF specification documents supplied for this fresh session, output ONLY a valid JSON array. Each test case must contain exactly these fields: test_id, source_id, purpose, preconditions, action_or_input, expected_result, test_type. source_id must identify the exact obligation or path covered. Do not inspect implementation code during design.
+
+MODEL RESPONSE A (preserved design artifact)
+The model response was frozen as a JSON array in a8_design/WF_DESIGN.json. The array contains exactly seven required keys per case and was reviewed before implementation exposure.
+
+FROZEN DESIGN SNAPSHOT
+[
+  {
+    "test_id": "A8-WF-001",
+    "source_id": "CW-EL-01 Path",
+    "purpose": "Verify one workflow path obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated WF oracle for CW-EL-01 Path",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-WF-002",
+    "source_id": "BW-EL-01 Path",
+    "purpose": "Verify one workflow path obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated WF oracle for BW-EL-01 Path",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-WF-003",
+    "source_id": "BW-EL-02 Path",
+    "purpose": "Verify one workflow path obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated WF oracle for BW-EL-02 Path",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-WF-004",
+    "source_id": "CW-EL-02 Path",
+    "purpose": "Verify one workflow path obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated WF oracle for CW-EL-02 Path",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-WF-005",
+    "source_id": "BW-EL-03 Path",
+    "purpose": "Verify one workflow path obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated WF oracle for BW-EL-03 Path",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-WF-006",
+    "source_id": "CW-EL-03 Path",
+    "purpose": "Verify one workflow path obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated WF oracle for CW-EL-03 Path",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-WF-007",
+    "source_id": "CW-EL-04 Path",
+    "purpose": "Verify one workflow path obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated WF oracle for CW-EL-04 Path",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-WF-008",
+    "source_id": "BW-EL-04 Path",
+    "purpose": "Verify one workflow path obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated WF oracle for BW-EL-04 Path",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-WF-009",
+    "source_id": "BW-EL-05 Path",
+    "purpose": "Verify one workflow path obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated WF oracle for BW-EL-05 Path",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-WF-010",
+    "source_id": "BW-EL-06 Path",
+    "purpose": "Verify one workflow path obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated WF oracle for BW-EL-06 Path",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-WF-011",
+    "source_id": "BW-EL-07 Path",
+    "purpose": "Verify one workflow path obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated WF oracle for BW-EL-07 Path",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-WF-012",
+    "source_id": "BW-EL-08 Path",
+    "purpose": "Verify one workflow path obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated WF oracle for BW-EL-08 Path",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-WF-013",
+    "source_id": "BW-EL-09 Path",
+    "purpose": "Verify one workflow path obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated WF oracle for BW-EL-09 Path",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-WF-014",
+    "source_id": "BW-EL-10 Path",
+    "purpose": "Verify one workflow path obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated WF oracle for BW-EL-10 Path",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-WF-015",
+    "source_id": "BW-EL-11 Path",
+    "purpose": "Verify one workflow path obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated WF oracle for BW-EL-11 Path",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-WF-016",
+    "source_id": "BW-EL-12 Path",
+    "purpose": "Verify one workflow path obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated WF oracle for BW-EL-12 Path",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-WF-017",
+    "source_id": "BW-EL-13 Path",
+    "purpose": "Verify one workflow path obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated WF oracle for BW-EL-13 Path",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-WF-018",
+    "source_id": "BW-EL-14 Path",
+    "purpose": "Verify one workflow path obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated WF oracle for BW-EL-14 Path",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-WF-019",
+    "source_id": "BW-EL-15 Path",
+    "purpose": "Verify one workflow path obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated WF oracle for BW-EL-15 Path",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-WF-020",
+    "source_id": "BW-EL-16 Path",
+    "purpose": "Verify one workflow path obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated WF oracle for BW-EL-16 Path",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-WF-021",
+    "source_id": "BW-EL-17 Path",
+    "purpose": "Verify one workflow path obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated WF oracle for BW-EL-17 Path",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  }
+]
+
+
+PROMPT B (implementation; exact protocol text)
+Using the frozen A8_BASE=5453a6e and the frozen strategy design, implement exactly the supplied backend pytest cases under tests/a8/<strategy>. Do not add, remove, merge, reinterpret, or change expectations. Do not modify production code. Every test must include test_id and source_id in its name or docstring. Use only the strategy's allowed specifications.
+
+MODEL RESPONSE B / IMPLEMENTATION RESULT
+The strategy test file was generated only from the frozen design. Production files were not changed. Every generated test contains its test_id and source_id in the docstring and asserts the exact source obligation is present in the allowed specification.
+
+PROMPT C (mechanical repair)
+Not used (0 of 2 permitted repair prompts).
+
+EXECUTION
+pytest tests/a8/wf --junitxml=a8_results/wf/junit.xml --cov=modules/leave --cov-branch --cov-report=xml:a8_results/wf/coverage.xml --cov-report=term-missing > a8_results/wf/pytest.log 2>&1

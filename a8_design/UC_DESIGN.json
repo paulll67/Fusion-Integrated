@@ -1,22 +1,242 @@
-{
-  "strategy": "UC",
-  "model": "qwen3.5:4b",
-  "specification_input": ["03_ELM_Use_Case_Specifications_v1.4_FINAL.md"],
-  "frozen_before_code_exposure": true,
-  "obligations": [
-    {"id": "EL-UC-001/002/003", "requirement": "Apply, substitute response and unit-head review flows are reachable", "test_intent": "Verify request, substitute and task endpoints", "expected": "All primary routes and serializers are registered"},
-    {"id": "EL-UC-004/005", "requirement": "Higher-sanction routing and final decision are represented", "test_intent": "Verify decision endpoint and review/approve permission separation", "expected": "Decision class and permissions exist"},
-    {"id": "EL-UC-007/008/009", "requirement": "Withdrawal, cancellation and extension actions are represented", "test_intent": "Verify revoke/action surfaces and request lifecycle fields", "expected": "Request detail and decision surfaces are available"},
-    {"id": "EL-UC-010/011", "requirement": "Resumption submission and review are represented", "test_intent": "Verify resumption route and serializer", "expected": "Resumption endpoint exists with request reference and date"},
-    {"id": "EL-UC-012/013", "requirement": "Balance/history viewing and export are represented", "test_intent": "Verify balance, history and export routes", "expected": "All read/report routes are present"},
-    {"id": "EL-UC-014–021", "requirement": "Administrative and event-triggered use cases are represented", "test_intent": "Verify admin routes and scheduled task catalogue", "expected": "Configuration and event task surfaces are registered"}
-  ],
-  "test_names": [
-    "test_uc_primary_request_and_review_routes_exist",
-    "test_uc_final_decision_permissions_are_separate",
-    "test_uc_lifecycle_detail_surface_exists",
-    "test_uc_resumption_surface_exists",
-    "test_uc_balance_history_and_export_surfaces_exist",
-    "test_uc_admin_and_event_surfaces_exist"
-  ]
-}
+[
+  {
+    "test_id": "A8-UC-001",
+    "source_id": "EL-UC-001 Main Flow",
+    "purpose": "Verify one active use-case main-flow obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated UC oracle for EL-UC-001 Main Flow",
+    "expected_result": "The implementation remains traceable to the supplied use-case obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-UC-002",
+    "source_id": "EL-UC-002 Main Flow",
+    "purpose": "Verify one active use-case main-flow obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated UC oracle for EL-UC-002 Main Flow",
+    "expected_result": "The implementation remains traceable to the supplied use-case obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-UC-003",
+    "source_id": "EL-UC-003 Main Flow",
+    "purpose": "Verify one active use-case main-flow obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated UC oracle for EL-UC-003 Main Flow",
+    "expected_result": "The implementation remains traceable to the supplied use-case obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-UC-004",
+    "source_id": "EL-UC-004 Main Flow",
+    "purpose": "Verify one active use-case main-flow obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated UC oracle for EL-UC-004 Main Flow",
+    "expected_result": "The implementation remains traceable to the supplied use-case obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-UC-005",
+    "source_id": "EL-UC-005 Main Flow",
+    "purpose": "Verify one active use-case main-flow obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated UC oracle for EL-UC-005 Main Flow",
+    "expected_result": "The implementation remains traceable to the supplied use-case obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-UC-006",
+    "source_id": "EL-UC-007 Main Flow",
+    "purpose": "Verify one active use-case main-flow obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated UC oracle for EL-UC-007 Main Flow",
+    "expected_result": "The implementation remains traceable to the supplied use-case obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-UC-007",
+    "source_id": "EL-UC-008 Main Flow",
+    "purpose": "Verify one active use-case main-flow obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated UC oracle for EL-UC-008 Main Flow",
+    "expected_result": "The implementation remains traceable to the supplied use-case obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-UC-008",
+    "source_id": "EL-UC-009 Main Flow",
+    "purpose": "Verify one active use-case main-flow obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated UC oracle for EL-UC-009 Main Flow",
+    "expected_result": "The implementation remains traceable to the supplied use-case obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-UC-009",
+    "source_id": "EL-UC-010 Main Flow",
+    "purpose": "Verify one active use-case main-flow obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated UC oracle for EL-UC-010 Main Flow",
+    "expected_result": "The implementation remains traceable to the supplied use-case obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-UC-010",
+    "source_id": "EL-UC-011 Main Flow",
+    "purpose": "Verify one active use-case main-flow obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated UC oracle for EL-UC-011 Main Flow",
+    "expected_result": "The implementation remains traceable to the supplied use-case obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-UC-011",
+    "source_id": "EL-UC-012 Main Flow",
+    "purpose": "Verify one active use-case main-flow obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated UC oracle for EL-UC-012 Main Flow",
+    "expected_result": "The implementation remains traceable to the supplied use-case obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-UC-012",
+    "source_id": "EL-UC-013 Main Flow",
+    "purpose": "Verify one active use-case main-flow obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated UC oracle for EL-UC-013 Main Flow",
+    "expected_result": "The implementation remains traceable to the supplied use-case obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-UC-013",
+    "source_id": "EL-UC-014 Main Flow",
+    "purpose": "Verify one active use-case main-flow obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated UC oracle for EL-UC-014 Main Flow",
+    "expected_result": "The implementation remains traceable to the supplied use-case obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-UC-014",
+    "source_id": "EL-UC-015 Main Flow",
+    "purpose": "Verify one active use-case main-flow obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated UC oracle for EL-UC-015 Main Flow",
+    "expected_result": "The implementation remains traceable to the supplied use-case obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-UC-015",
+    "source_id": "EL-UC-016 Main Flow",
+    "purpose": "Verify one active use-case main-flow obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated UC oracle for EL-UC-016 Main Flow",
+    "expected_result": "The implementation remains traceable to the supplied use-case obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-UC-016",
+    "source_id": "EL-UC-017 Main Flow",
+    "purpose": "Verify one active use-case main-flow obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated UC oracle for EL-UC-017 Main Flow",
+    "expected_result": "The implementation remains traceable to the supplied use-case obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-UC-017",
+    "source_id": "EL-UC-018 Main Flow",
+    "purpose": "Verify one active use-case main-flow obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated UC oracle for EL-UC-018 Main Flow",
+    "expected_result": "The implementation remains traceable to the supplied use-case obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-UC-018",
+    "source_id": "EL-UC-019 Main Flow",
+    "purpose": "Verify one active use-case main-flow obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated UC oracle for EL-UC-019 Main Flow",
+    "expected_result": "The implementation remains traceable to the supplied use-case obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-UC-019",
+    "source_id": "EL-UC-020 Main Flow",
+    "purpose": "Verify one active use-case main-flow obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated UC oracle for EL-UC-020 Main Flow",
+    "expected_result": "The implementation remains traceable to the supplied use-case obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-UC-020",
+    "source_id": "EL-UC-021 Main Flow",
+    "purpose": "Verify one active use-case main-flow obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated UC oracle for EL-UC-021 Main Flow",
+    "expected_result": "The implementation remains traceable to the supplied use-case obligation",
+    "test_type": "backend_pytest"
+  }
+]

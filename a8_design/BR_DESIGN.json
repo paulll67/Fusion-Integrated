@@ -1,22 +1,458 @@
-{
-  "strategy": "BR",
-  "model": "qwen3.5:4b",
-  "specification_input": ["04_ELM_Business_Rule_Specifications_v1.4_FINAL.md"],
-  "frozen_before_code_exposure": true,
-  "obligations": [
-    {"id": "BR-EL-001–013", "requirement": "Core leave eligibility, category and interval rules are represented", "test_intent": "Validate category and date guards", "expected": "Supported categories pass and invalid/reversed input fails"},
-    {"id": "BR-EL-014/015", "requirement": "Substitute consent and decline paths are represented", "test_intent": "Verify substitute response fields and permission route", "expected": "Substitute data can be serialized and routed"},
-    {"id": "BR-EL-016–020", "requirement": "Authority-specific decision paths are represented", "test_intent": "Verify review and approval permissions are distinct", "expected": "Review and approval grants are separately catalogued"},
-    {"id": "BR-EL-023/024", "requirement": "Cancellation and balance adjustment are represented", "test_intent": "Verify cancellation flag and lifecycle mutation surface", "expected": "Cancellation state fields and detail action exist"},
-    {"id": "BR-EL-031/032/033/038", "requirement": "Calendar/SLA threshold behavior is represented", "test_intent": "Verify calendar publication and SLA task configuration", "expected": "Calendar and SLA permissions, models and tasks exist"},
-    {"id": "BR-EL-034/036/037", "requirement": "Withdrawal, traceability and record integrity are represented", "test_intent": "Verify revoke permission, audit serializer and record API", "expected": "Revoke/history/record surfaces exist"}
-  ],
-  "test_names": [
-    "test_br_category_and_interval_guards",
-    "test_br_substitute_consent_surface",
-    "test_br_review_and_approval_grants_are_distinct",
-    "test_br_cancellation_lifecycle_fields_exist",
-    "test_br_calendar_and_sla_configuration_surface",
-    "test_br_withdrawal_audit_and_record_surfaces_exist"
-  ]
-}
+[
+  {
+    "test_id": "A8-BR-001",
+    "source_id": "BR-EL-001",
+    "purpose": "Verify one business-rule obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated BR oracle for BR-EL-001",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-BR-002",
+    "source_id": "BR-EL-002",
+    "purpose": "Verify one business-rule obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated BR oracle for BR-EL-002",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-BR-003",
+    "source_id": "BR-EL-003",
+    "purpose": "Verify one business-rule obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated BR oracle for BR-EL-003",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-BR-004",
+    "source_id": "BR-EL-004",
+    "purpose": "Verify one business-rule obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated BR oracle for BR-EL-004",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-BR-005",
+    "source_id": "BR-EL-005",
+    "purpose": "Verify one business-rule obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated BR oracle for BR-EL-005",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-BR-006",
+    "source_id": "BR-EL-006",
+    "purpose": "Verify one business-rule obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated BR oracle for BR-EL-006",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-BR-007",
+    "source_id": "BR-EL-007",
+    "purpose": "Verify one business-rule obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated BR oracle for BR-EL-007",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-BR-008",
+    "source_id": "BR-EL-008",
+    "purpose": "Verify one business-rule obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated BR oracle for BR-EL-008",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-BR-009",
+    "source_id": "BR-EL-009",
+    "purpose": "Verify one business-rule obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated BR oracle for BR-EL-009",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-BR-010",
+    "source_id": "BR-EL-010",
+    "purpose": "Verify one business-rule obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated BR oracle for BR-EL-010",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-BR-011",
+    "source_id": "BR-EL-011",
+    "purpose": "Verify one business-rule obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated BR oracle for BR-EL-011",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-BR-012",
+    "source_id": "BR-EL-012",
+    "purpose": "Verify one business-rule obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated BR oracle for BR-EL-012",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-BR-013",
+    "source_id": "BR-EL-013",
+    "purpose": "Verify one business-rule obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated BR oracle for BR-EL-013",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-BR-014",
+    "source_id": "BR-EL-014",
+    "purpose": "Verify one business-rule obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated BR oracle for BR-EL-014",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-BR-015",
+    "source_id": "BR-EL-015",
+    "purpose": "Verify one business-rule obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated BR oracle for BR-EL-015",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-BR-016",
+    "source_id": "BR-EL-016",
+    "purpose": "Verify one business-rule obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated BR oracle for BR-EL-016",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-BR-017",
+    "source_id": "BR-EL-017",
+    "purpose": "Verify one business-rule obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated BR oracle for BR-EL-017",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-BR-018",
+    "source_id": "BR-EL-018",
+    "purpose": "Verify one business-rule obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated BR oracle for BR-EL-018",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-BR-019",
+    "source_id": "BR-EL-019",
+    "purpose": "Verify one business-rule obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated BR oracle for BR-EL-019",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-BR-020",
+    "source_id": "BR-EL-020",
+    "purpose": "Verify one business-rule obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated BR oracle for BR-EL-020",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-BR-021",
+    "source_id": "BR-EL-021",
+    "purpose": "Verify one business-rule obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated BR oracle for BR-EL-021",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-BR-022",
+    "source_id": "BR-EL-022",
+    "purpose": "Verify one business-rule obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated BR oracle for BR-EL-022",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-BR-023",
+    "source_id": "BR-EL-023",
+    "purpose": "Verify one business-rule obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated BR oracle for BR-EL-023",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-BR-024",
+    "source_id": "BR-EL-024",
+    "purpose": "Verify one business-rule obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated BR oracle for BR-EL-024",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-BR-025",
+    "source_id": "BR-EL-025",
+    "purpose": "Verify one business-rule obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated BR oracle for BR-EL-025",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-BR-026",
+    "source_id": "BR-EL-026",
+    "purpose": "Verify one business-rule obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated BR oracle for BR-EL-026",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-BR-027",
+    "source_id": "BR-EL-027",
+    "purpose": "Verify one business-rule obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated BR oracle for BR-EL-027",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-BR-028",
+    "source_id": "BR-EL-028",
+    "purpose": "Verify one business-rule obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated BR oracle for BR-EL-028",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-BR-029",
+    "source_id": "BR-EL-029",
+    "purpose": "Verify one business-rule obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated BR oracle for BR-EL-029",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-BR-030",
+    "source_id": "BR-EL-030",
+    "purpose": "Verify one business-rule obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated BR oracle for BR-EL-030",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-BR-031",
+    "source_id": "BR-EL-031",
+    "purpose": "Verify one business-rule obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated BR oracle for BR-EL-031",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-BR-032",
+    "source_id": "BR-EL-032",
+    "purpose": "Verify one business-rule obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated BR oracle for BR-EL-032",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-BR-033",
+    "source_id": "BR-EL-033",
+    "purpose": "Verify one business-rule obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated BR oracle for BR-EL-033",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-BR-034",
+    "source_id": "BR-EL-034",
+    "purpose": "Verify one business-rule obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated BR oracle for BR-EL-034",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-BR-035",
+    "source_id": "BR-EL-035",
+    "purpose": "Verify one business-rule obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated BR oracle for BR-EL-035",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-BR-036",
+    "source_id": "BR-EL-036",
+    "purpose": "Verify one business-rule obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated BR oracle for BR-EL-036",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-BR-037",
+    "source_id": "BR-EL-037",
+    "purpose": "Verify one business-rule obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated BR oracle for BR-EL-037",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  },
+  {
+    "test_id": "A8-BR-038",
+    "source_id": "BR-EL-038",
+    "purpose": "Verify one business-rule obligation is represented by an executable backend test case",
+    "preconditions": [
+      "Frozen A8_BASE=5453a6e",
+      "Backend test environment is available"
+    ],
+    "action_or_input": "Execute the automated BR oracle for BR-EL-038",
+    "expected_result": "The implementation remains traceable to the supplied specification obligation",
+    "test_type": "backend_pytest"
+  }
+]

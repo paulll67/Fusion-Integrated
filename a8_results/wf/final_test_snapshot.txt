@@ -1,2 +1,5 @@
-tests/a8/wf/test_wf.py: 6
+Standard Assignment 8 execution snapshot (final)
+Strategy: WF
+Result: 21 passed, 0 failed, 0 skipped
+Coverage: 6.182% line/statement, 0% branch
 

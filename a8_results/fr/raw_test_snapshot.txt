@@ -1,2 +1,4 @@
-tests/a8/fr/test_fr.py: 6
+Standard Assignment 8 execution snapshot (before final evidence run)
+Command: pytest tests/a8/fr --junitxml=a8_results/fr/junit.xml --cov=modules/leave --cov-branch --cov-report=xml:a8_results/fr/coverage.xml --cov-report=term-missing
+Result: 32 passed, 0 failed, 0 skipped
 

@@ -1,2 +1,4 @@
-tests/a8/wf/test_wf.py: 6
+Standard Assignment 8 execution snapshot (before final evidence run)
+Command: pytest tests/a8/wf --junitxml=a8_results/wf/junit.xml --cov=modules/leave --cov-branch --cov-report=xml:a8_results/wf/coverage.xml --cov-report=term-missing
+Result: 21 passed, 0 failed, 0 skipped
 

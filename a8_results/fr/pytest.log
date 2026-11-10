@@ -1,1 +1,46 @@
-......                                                                   [100%]
+................................                                         [100%]
+=============================== tests coverage ================================
+______________ coverage: platform win32, python 3.12.16-final-0 _______________
+
+Name                                       Stmts   Miss Branch BrPart  Cover   Missing
+--------------------------------------------------------------------------------------
+modules\leave\__init__.py                      0      0      0      0   100%
+modules\leave\api\__init__.py                  0      0      0      0   100%
+modules\leave\api\permissions.py              11     11      2      0     0%   3-18
+modules\leave\api\serializers.py              84     84      4      0     0%   3-234
+modules\leave\api\urls.py                      4      4      0      0     0%   1-7
+modules\leave\api\views.py                   149    149     22      0     0%   3-235
+modules\leave\apps.py                          6      0      0      0   100%
+modules\leave\contracts.py                    74     74     16      0     0%   14-253
+modules\leave\domain\__init__.py             196    196     18      0     0%   9-416
+modules\leave\domain\counting.py             192    192     78      0     0%   18-411
+modules\leave\domain\entitlements.py         134    134     36      0     0%   17-368
+modules\leave\domain\routing.py               53     53     18      0     0%   12-164
+modules\leave\domain\state_machine.py         41     41      0      0     0%   8-100
+modules\leave\migrations\0001_initial.py       8      8      0      0     0%   3-16
+modules\leave\migrations\__init__.py           0      0      0      0   100%
+modules\leave\models\__init__.py               2      0      0      0   100%
+modules\leave\models\accounts.py             165      9      0      0    95%   44, 84, 127, 158, 186, 221, 250, 282, 314
+modules\leave\models\administration.py       193    193      0      0     0%   12-595
+modules\leave\models\calendar.py              36     36      4      0     0%   9-114
+modules\leave\models\configuration.py        131    131      2      0     0%   13-414
+modules\leave\models\requests.py             247    247     44      0     0%   12-500
+modules\leave\registry.py                      5      5      0      0     0%   3-112
+modules\leave\schedule.py                      3      3      0      0     0%   11-22
+modules\leave\selectors\__init__.py           77     77      0      0     0%   9-187
+modules\leave\selectors\configuration.py      79     79     10      0     0%   12-174
+modules\leave\selectors\requests.py           73     73     10      0     0%   12-331
+modules\leave\selectors\scoping.py            98     98     26      0     0%   16-256
+modules\leave\services\__init__.py             3      3      0      0     0%   10-14
+modules\leave\services\accounts.py            97     97     26      0     0%   8-472
+modules\leave\services\admin.py               88     88     24      0     0%   10-287
+modules\leave\services\applications.py       126    126     50      0     0%   11-432
+modules\leave\services\decisions.py           92     92     26      0     0%   10-247
+modules\leave\services\notifications.py       79     79     22      0     0%   8-192
+modules\leave\services\sla.py                 49     49     12      0     0%   3-93
+modules\leave\services\year_end.py            39     39     10      0     0%   3-92
+modules\leave\tasks.py                        19     19      0      0     0%   3-53
+--------------------------------------------------------------------------------------
+TOTAL                                       2653   2489    460      0     5%
+Coverage XML written to file a8_results/fr/coverage.xml
+32 passed in 2.62s
