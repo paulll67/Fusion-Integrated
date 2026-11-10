@@ -9,18 +9,25 @@ and active unless explicitly marked otherwise in the database schema.
 Identity references use integer user_id values. Cross-module data access
 must use public contracts defined in modules.leave.contracts.py.
 """
+
 from decimal import Decimal
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 from django.db import models
-from django.db.models import Q
 
 from core.db.mixins import TimeStampedModel
-from modules.directory.models import UserRef
+
+CATEGORY_CL = "CL"
+CATEGORY_RH = "RH"
+CATEGORY_SCL = "SCL"
+CATEGORY_EL = "EL"
+CATEGORY_COL = "COL"
+CATEGORY_VL = "VL"
 
 # =============================================================================
 # Leave Policy Configuration
 # =============================================================================
+
 
 class LeavePolicyConfig(TimeStampedModel):
     """Current leave entitlements and counting parameters.
@@ -72,7 +79,9 @@ class LeavePolicyConfig(TimeStampedModel):
     category_vl_days = models.PositiveSmallIntegerField(default=ENTITLEMENT_VL)
 
     # VL conversion ratio at year-end (2 VL : 1 EL)
-    vl_to_el_conversion_ratio = models.DecimalField(max_digits=4, decimal_places=2, default=Decimal("0.5"))
+    vl_to_el_conversion_ratio = models.DecimalField(
+        max_digits=4, decimal_places=2, default=Decimal("0.5")
+    )
 
     # Year-end processing flags
     lapse_unused_cl = models.BooleanField(default=True)
@@ -89,9 +98,11 @@ class LeavePolicyConfig(TimeStampedModel):
     def __str__(self) -> str:
         return "Leave Policy Config"
 
+
 # =============================================================================
 # Hierarchy and Routing Configuration
 # =============================================================================
+
 
 class HierarchyConfig(TimeStampedModel):
     """Current organizational unit and designation routing configuration.
@@ -168,7 +179,7 @@ class HierarchyConfig(TimeStampedModel):
     # Establishment processing flag (optional step in hierarchy)
     enable_establishment_routing = models.BooleanField(default=False)
 
-    def get_routing_path(self, designation: str, category: str) -> List[str]:
+    def get_routing_path(self, designation: str, category: str) -> list[str]:
         """Retrieve the sanctioning path for a given designation and leave category.
 
         Args:
@@ -184,9 +195,11 @@ class HierarchyConfig(TimeStampedModel):
     def __str__(self) -> str:
         return "Hierarchy Config"
 
+
 # =============================================================================
 # SLA Threshold Configuration
 # =============================================================================
+
 
 class SLAConfig(TimeStampedModel):
     """SLA threshold and escalation configuration.
@@ -212,9 +225,11 @@ class SLAConfig(TimeStampedModel):
     def __str__(self) -> str:
         return f"SLA Config (Rem: {self.reminder_threshold_hours}h, Esc: {self.escalation_threshold_hours}h)"
 
+
 # =============================================================================
 # Calendar and Holiday Configuration
 # =============================================================================
+
 
 class HolidayRHCalendar(TimeStampedModel):
     """Holiday/RH calendar metadata and date records.
@@ -246,7 +261,7 @@ class HolidayRHCalendar(TimeStampedModel):
         db_table = "holiday_rh_calendar"
         verbose_name = "Holiday/RH Calendar"
 
-    def get_published_dates(self) -> List[Dict[str, Any]]:
+    def get_published_dates(self) -> list[dict[str, Any]]:
         """Return only the dates from a published calendar.
 
         Returns:
@@ -256,7 +271,7 @@ class HolidayRHCalendar(TimeStampedModel):
             return []
         return self.dates
 
-    def get_rh_dates(self) -> List[Dict[str, Any]]:
+    def get_rh_dates(self) -> list[dict[str, Any]]:
         """Return only the Restricted Holiday dates from a published calendar.
 
         Returns:
@@ -267,9 +282,11 @@ class HolidayRHCalendar(TimeStampedModel):
     def __str__(self) -> str:
         return f"{self.name} ({self.year})"
 
+
 # =============================================================================
 # Offline Sanction Record Configuration
 # =============================================================================
+
 
 class OfflineSanctionRecord(TimeStampedModel):
     """Record for already-sanctioned offline leave.
@@ -287,7 +304,20 @@ class OfflineSanctionRecord(TimeStampedModel):
     """
 
     employee_user_id = models.PositiveIntegerField(unique=True)
-    category = models.CharField(max_length=10, choices=[(c, c) for c in [CATEGORY_CL, CATEGORY_RH, CATEGORY_SCL, CATEGORY_EL, CATEGORY_COL, CATEGORY_VL]])
+    category = models.CharField(
+        max_length=10,
+        choices=[
+            (c, c)
+            for c in [
+                CATEGORY_CL,
+                CATEGORY_RH,
+                CATEGORY_SCL,
+                CATEGORY_EL,
+                CATEGORY_COL,
+                CATEGORY_VL,
+            ]
+        ],
+    )
     start_date = models.DateField()
     end_date = models.DateField()
     sanction_reference = models.CharField(max_length=255, blank=True)
@@ -300,9 +330,11 @@ class OfflineSanctionRecord(TimeStampedModel):
     def __str__(self) -> str:
         return f"Offline Sanction for {self.employee_user_id} ({self.category})"
 
+
 # =============================================================================
 # Leave Account and Ledger Entry Configuration
 # =============================================================================
+
 
 class LeaveAccount(TimeStampedModel):
     """Employee leave account aggregate.
@@ -318,7 +350,20 @@ class LeaveAccount(TimeStampedModel):
     """
 
     employee_user_id = models.PositiveIntegerField(unique=True)
-    category = models.CharField(max_length=10, choices=[(c, c) for c in [CATEGORY_CL, CATEGORY_RH, CATEGORY_SCL, CATEGORY_EL, CATEGORY_COL, CATEGORY_VL]])
+    category = models.CharField(
+        max_length=10,
+        choices=[
+            (c, c)
+            for c in [
+                CATEGORY_CL,
+                CATEGORY_RH,
+                CATEGORY_SCL,
+                CATEGORY_EL,
+                CATEGORY_COL,
+                CATEGORY_VL,
+            ]
+        ],
+    )
     balance = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal("0.00"))
     year_start_date = models.DateField()
 
@@ -344,7 +389,20 @@ class LeaveLedgerEntry(TimeStampedModel):
     """
 
     account = models.ForeignKey(LeaveAccount, on_delete=models.CASCADE)
-    transaction_type = models.CharField(max_length=50, choices=[(t, t) for t in ["APPROVAL", "EXTENSION", "CANCELLATION", "RESUMPTION_ADJUSTMENT", "YEAR_END_CONVERSION", "LAPSE"]])
+    transaction_type = models.CharField(
+        max_length=50,
+        choices=[
+            (t, t)
+            for t in [
+                "APPROVAL",
+                "EXTENSION",
+                "CANCELLATION",
+                "RESUMPTION_ADJUSTMENT",
+                "YEAR_END_CONVERSION",
+                "LAPSE",
+            ]
+        ],
+    )
     amount_change = models.DecimalField(max_digits=8, decimal_places=2)
     source_reference = models.CharField(max_length=255, blank=True)
 

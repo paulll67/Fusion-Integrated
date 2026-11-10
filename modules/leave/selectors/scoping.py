@@ -12,31 +12,30 @@ exists, which for leave data is itself a disclosure.
     ELM-PC-BR-020  Alumni are excluded from active workflow objects
     ELM-PC-BR-023  Sensitive data is restricted to authorised readers
 """
+
 from __future__ import annotations
 
 from django.db.models import QuerySet
 
-from fusion_auth.client import IamUnavailable, get_client
 from modules.directory.models import UserRef
+from modules.leave.contracts import EmployeeDTO
 from modules.leave.models import (
     LeaveRequest,
-    WorkflowTask,
     SubstituteAssignment,
+    WorkflowTask,
 )
-from modules.leave.contracts import EmployeeDTO
 
 # Permission codes. Held by TPO / Director via the IAM.
-P_VIEW_ALL = "leave_cell.leave_request.view"
-P_MANAGE_TASKS = "leave_cell.workflow_task.manage"
-P_VIEW_REPORTS = "leave_cell.report.view"
+P_VIEW_ALL = "leave.request.view"
+P_MANAGE_TASKS = "leave.workflow_task.update"
+P_VIEW_REPORTS = "leave.request.export"
 
 # Any of these makes someone staff; view_self is the employee grant and absent.
 STAFF_SCOPE_PERMISSIONS = (
     P_VIEW_ALL,
-    "leave_cell.leave_request.review",
-    "leave_cell.workflow_task.manage",
-    "leave_cell.substitute.assign",
-    "leave_cell.report.view",
+    "leave.request.review",
+    "leave.workflow_task.update",
+    "leave.request.export",
 )
 
 ALUMNI_ROLE = "alumni"
@@ -68,9 +67,7 @@ def is_staff(actor) -> bool:
     """Sees the whole module. Never a recruiter or alumnus, whatever
     permissions they might somehow carry."""
     return (
-        not _is_recruiter(actor)
-        and not _is_alumni(actor)
-        and _has(actor, *STAFF_SCOPE_PERMISSIONS)
+        not _is_recruiter(actor) and not _is_alumni(actor) and _has(actor, *STAFF_SCOPE_PERMISSIONS)
     )
 
 
@@ -80,10 +77,7 @@ _sees_everything = is_staff
 # -- Leave Requests -----------------------------------------------------------
 def leave_requests_for(actor) -> QuerySet[LeaveRequest]:
     """Base queryset for leave requests scoped by actor."""
-    base = LeaveRequest.objects.select_related(
-        "employee",
-        "workflow_task__assigned_user",
-    )
+    base = LeaveRequest.objects.all()
 
     user_id = _own_id(actor)
 
@@ -93,7 +87,7 @@ def leave_requests_for(actor) -> QuerySet[LeaveRequest]:
 
     # Default: show own requests unless staff sees all.
     if not _sees_everything(actor):
-        return base.filter(employee_user_id=user_id)
+        return base.filter(user_id=user_id)
 
     # Staff / TPO / Director sees everything.
     return base.all()
@@ -111,21 +105,19 @@ def leave_request_by_id(request_id: int, actor) -> LeaveRequest | None:
         return req
 
     # Check ownership or specific permission.
-    if req.employee_user_id == _own_id(actor):
+    if req.user_id == _own_id(actor):
         return req
 
     # Check if actor is a task assignee (limited read).
     try:
-        task = WorkflowTask.objects.get(
-            request_id=request_id,
+        WorkflowTask.objects.get(
+            request_id_id=request_id,
             assigned_user_id=_own_id(actor),
         )
-        # Allow read for task assignees.
-        return req
     except WorkflowTask.DoesNotExist:
-        pass
-
-    return None
+        return None
+    # Allow read for task assignees.
+    return req
 
 
 # -- Workflow Tasks -----------------------------------------------------------
@@ -133,7 +125,6 @@ def workflow_tasks_for(actor) -> QuerySet[WorkflowTask]:
     """Base queryset for workflow tasks scoped by actor."""
     base = WorkflowTask.objects.select_related(
         "request",
-        "assigned_user",
     )
 
     user_id = _own_id(actor)
@@ -170,11 +161,7 @@ def workflow_task_by_id(task_id: int, actor) -> WorkflowTask | None:
 # -- Substitute Assignments ---------------------------------------------------
 def substitute_assignments_for(actor) -> QuerySet[SubstituteAssignment]:
     """Base queryset for substitute assignments scoped by actor."""
-    base = SubstituteAssignment.objects.select_related(
-        "request",
-        "applicant",
-        "substitute",
-    )
+    base = SubstituteAssignment.objects.select_related("request")
 
     user_id = _own_id(actor)
 
@@ -189,9 +176,7 @@ def substitute_assignments_for(actor) -> QuerySet[SubstituteAssignment]:
     return base.all()
 
 
-def substitute_assignment_by_id(
-    assignment_id: int, actor
-) -> SubstituteAssignment | None:
+def substitute_assignment_by_id(assignment_id: int, actor) -> SubstituteAssignment | None:
     """Retrieve a specific assignment. Returns None if not found or unauthorized."""
     try:
         assign = SubstituteAssignment.objects.get(id=assignment_id)
@@ -213,7 +198,7 @@ def substitute_assignment_by_id(
 def get_employee_for_request(request: LeaveRequest) -> EmployeeDTO | None:
     """Get employee details for a leave request using public contract."""
     try:
-        user_ref = UserRef.objects.get(user_id=request.employee_user_id)
+        user_ref = UserRef.objects.get(user_id=request.user_id)
         return EmployeeDTO.from_ref(user_ref)
     except UserRef.DoesNotExist:
         return None
@@ -264,10 +249,12 @@ def check_sla_threshold(task: WorkflowTask, actor) -> bool:
     Returns True if the task is still pending and exceeds configured thresholds.
     """
     config = get_sla_config(actor)
-    due_hours = (task.due_date - task.created_at).total_seconds() / 3600
+    if task.due_date is None:
+        return False
+    due_hours = (task.due_date - task.created_at.date()).days * 24
 
     return (
-        task.status == "pending"
+        task.state in {"PENDING", "ASSIGNED"}
         and due_hours > config["reminder_threshold_hours"]
         and due_hours > config["escalation_threshold_hours"]
     )

@@ -7,7 +7,8 @@ SLA threshold monitoring, and other time-bound operations.
 Workflow authority: 06_ELM_Workflow_Specifications_v1.6_FINAL.docx (STTs).
 Policy configuration: Follows Problem Statement v1.4 (current values only).
 """
-from celery.schedules import crontab, hourly
+
+from celery.schedules import crontab
 
 # Task routes map task names to worker queues.
 # Without this, tasks queue on the default pool.
@@ -27,7 +28,6 @@ BEAT_SCHEDULE = {
         "schedule": crontab(hour=2, minute=0),
         "options": {"expires": 3600},
     },
-
     # SLA threshold processing.
     # Triggered periodically to check pending actionable tasks against configured thresholds.
     # Operation: Check pending tasks, send reminder/escalation only at configured thresholds, log outcome.
@@ -36,12 +36,11 @@ BEAT_SCHEDULE = {
         "schedule": crontab(minute=0),
         "options": {"expires": 7200},
     },
-
     # SLA reminder dispatch.
     # Triggered frequently to ensure timely notification of pending tasks.
     "leave.send_sla_reminders": {
         "task": "leave.send_sla_reminders",
-        "schedule": hourly(),
+        "schedule": 3600.0,
         "options": {"expires": 300},
     },
 }

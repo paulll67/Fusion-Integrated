@@ -4,21 +4,18 @@ This module implements notification delivery using the platform's outbox pattern
 Notifications are queued in the same transaction as the triggering event to ensure atomicity.
 Redelivery is handled via `dedupe_key` for idempotency.
 """
+
 from __future__ import annotations
 
 import logging
 from dataclasses import dataclass
-from datetime import timedelta, datetime
-from typing import Any, Optional
+from datetime import datetime
 
 from django.conf import settings
 from django.core.mail import send_mail
 from django.db import IntegrityError, transaction
-from django.utils import timezone
 
-from fusion_auth.client import IamUnavailable, get_client
 from modules.directory import contracts as directory
-from modules.leave import contracts as leave
 from modules.placement.models import NotificationOutbox
 
 log = logging.getLogger("fusion.leave.notify")
@@ -30,16 +27,13 @@ TOPICS = {
     "task.assigned",  # Assigned actionable task
     "task.reminder",  # SLA threshold reminder
     "task.escalated",  # SLA escalation notification
-    
     # Lifecycle Events (Withdrawal, Cancellation)
     "request.withdrawn",  # Pending withdrawal effective
     "request.cancelled",  # Approved leave cancellation
-    
     # Decision Communication
     "decision.approved",  # Final approval decision
     "decision.rejected",  # Final rejection decision
     "decision.not_recommended",  # Unit Head recommendation (for higher sanction)
-    
     # Special Outcomes
     "substitute.declined",  # Substitute declined, applicant action required
     "resumption.reviewed",  # Resumption review outcome
@@ -53,18 +47,18 @@ def enqueue(
     dedupe_key: str,
     subject: str,
     body: str,
-    recipient_user_id: Optional[int] = None,
+    recipient_user_id: int | None = None,
     recipient_email: str = "",
-    payload: Optional[dict] = None,
+    payload: dict | None = None,
 ) -> NotificationOutbox | None:
     """Queue one notification, inside the caller's transaction.
-    
+
     Returns None if it was already queued (duplicate key).
     Raises ValueError for unknown topics or missing recipients.
     """
     if topic not in TOPICS:
         raise ValueError(f"Unknown notification topic {topic!r}.")
-    
+
     if recipient_user_id is None and not recipient_email:
         raise ValueError("A notification needs a recipient.")
 
@@ -111,13 +105,13 @@ class DeliveryReport:
 
 def _backoff_ready(row: NotificationOutbox, now: datetime) -> bool:
     """Check if a notification should be retried based on backoff schedule.
-    
+
     Schedule: 1, 2, 4, 8... minutes.
     """
     last_attempt = row.last_attempt
     if not last_attempt:
         return True
-    
+
     elapsed_minutes = (now - last_attempt).total_seconds() / 60
     # Simple exponential backoff check
     retry_interval = 2 ** int(elapsed_minutes)
@@ -126,7 +120,7 @@ def _backoff_ready(row: NotificationOutbox, now: datetime) -> bool:
 
 def _deliver(row: NotificationOutbox, now: datetime) -> bool:
     """Attempt to deliver a notification from the outbox.
-    
+
     Returns True if successfully sent or skipped due to backoff.
     """
     if not row.recipient_email and not row.recipient_user_id:
@@ -139,7 +133,7 @@ def _deliver(row: NotificationOutbox, now: datetime) -> bool:
             user_ref = directory.get_user_by_id(row.recipient_user_id)
             if user_ref:
                 recipients.append(user_ref.email)
-        
+
         if not recipients and row.recipient_email:
             recipients.append(row.recipient_email)
 
@@ -167,16 +161,16 @@ def _deliver(row: NotificationOutbox, now: datetime) -> bool:
 
 def process_outbox(now: datetime) -> DeliveryReport:
     """Process pending notifications from the outbox.
-    
+
     This function is intended to be called by a scheduled task (e.g., Celery).
     """
     report = DeliveryReport()
-    
+
     # Fetch pending or failed notifications
-    rows = NotificationOutbox.objects.filter(
-        status__in=["pending", "failed"]
-    ).order_by("created_at")
-    
+    rows = NotificationOutbox.objects.filter(status__in=["pending", "failed"]).order_by(
+        "created_at"
+    )
+
     for row in rows:
         if _backoff_ready(row, now):
             report.expanded += 1
@@ -194,5 +188,5 @@ def process_outbox(now: datetime) -> DeliveryReport:
         else:
             # Still pending but not ready to send yet (backoff)
             report.deferred += 1
-    
+
     return report

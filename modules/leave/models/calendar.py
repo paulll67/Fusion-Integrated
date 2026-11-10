@@ -5,15 +5,15 @@ This module provides the domain model for managing the currently effective publi
 holiday/RH calendar used by ELM for date and RH validation. It does not support
 draft/publish/effective-version lifecycle; only the current published state is stored.
 """
+
 from __future__ import annotations
 
 from datetime import date
-from typing import Optional
 
+from django.core.validators import MinValueValidator
 from django.db import models
-from django.core.validators import MinValueValidator, MaxValueValidator
 
-from core.db.mixins import TimeStampedModel, UserScopedModel
+from core.db.mixins import TimeStampedModel
 
 
 class HolidayRHCalendar(TimeStampedModel):
@@ -40,18 +40,18 @@ class HolidayRHCalendar(TimeStampedModel):
     restricted_holidays = models.JSONField(default=list, validators=[MinValueValidator(0)])
 
     class Meta:
-        app_label = 'leave'
-        verbose_name = 'Holiday/RH Calendar'
-        verbose_name_plural = 'Holiday/RH Calendars'
+        app_label = "leave"
+        verbose_name = "Holiday/RH Calendar"
+        verbose_name_plural = "Holiday/RH Calendars"
         indexes = [
-            models.Index(fields=['effective_from', 'effective_to']),
+            models.Index(fields=["effective_from", "effective_to"]),
         ]
 
     def __str__(self) -> str:
         return f"{self.name} (Effective: {self.effective_from})"
 
     @classmethod
-    def get_current(cls) -> "HolidayRHCalendar":
+    def get_current(cls) -> HolidayRHCalendar:
         """Retrieve the currently effective published calendar.
 
         Returns the calendar where the current date falls within [effective_from, effective_to].

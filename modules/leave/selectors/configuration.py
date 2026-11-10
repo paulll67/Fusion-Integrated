@@ -8,19 +8,19 @@ BR-EL-031 (Effective published holiday/RH calendar), and supports EL-UC-014/015 
 All identity references are integer user_id values. Cross-module data access uses public contracts
 (e.g., get_policy_config(), get_holiday_calendar()). No cross-module FKs or direct table reads.
 """
+
 from __future__ import annotations
 
 from collections.abc import Sequence
 from dataclasses import dataclass
 
-from fusion_auth.client import IamUnavailable, get_client
 from modules.directory.models import UserRef
-from modules.directory.services.sync import ensure_users_cached
 
 
 @dataclass(frozen=True)
 class EmployeeDTO:
     """Employee projection for leave eligibility and balance checks."""
+
     user_id: int
     username: str
     display_name: str
@@ -29,9 +29,9 @@ class EmployeeDTO:
     department: str = ""
     designation: str = ""
     batch_year: int | None = None
-    
+
     @classmethod
-    def from_ref(cls, r: UserRef) -> "EmployeeDTO":
+    def from_ref(cls, r: UserRef) -> EmployeeDTO:
         return cls(
             user_id=r.user_id,
             username=r.username,
@@ -49,6 +49,7 @@ class LeavePolicyConfigDTO:
     """Current leave entitlements and counting parameters.
     Implements BR-EL-030: Uses current configured values only; no draft/publish/effective-version lifecycle.
     """
+
     cl_days_per_year: int = 8
     rh_days_per_year: int = 2
     faculty_vl_conversion_enabled: bool = True
@@ -60,6 +61,7 @@ class HierarchyConfigDTO:
     """Current org-unit/designation/category routing facts.
     Implements BR-EL-030: Uses current configured values only.
     """
+
     unit_head_role: str = "Unit Head"
     director_role: str = "Director"
     establishment_routing_enabled: bool = False
@@ -70,6 +72,7 @@ class HolidayRHCalendarDTO:
     """Currently effective published holiday/RH calendar.
     Implements BR-EL-031: Only currently effective published calendar is used for date/RH validation.
     """
+
     name: str = "Default Calendar"
     holidays: list[tuple[int, str]] = ()  # (date_index, holiday_name)
     restricted_holidays: list[tuple[int, str]] = ()  # (date_index, rh_name)

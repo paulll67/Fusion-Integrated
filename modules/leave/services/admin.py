@@ -6,22 +6,21 @@ online-sanctioned leave records, authorized leave record maintenance, and SLA th
 
 Identity references are integer user_id values. Cross-module data access uses public contracts from modules.leave.contracts.
 """
+
 from __future__ import annotations
 
-from typing import Any, Optional
+from typing import Any
 
 from django.db import transaction
-from django.utils import timezone
 
 from core.api.exceptions import ConflictError, NotFoundError
 from fusion_auth.client import get_client
-
-from modules.directory.models import UserRef
-from modules.leave.contracts import EmployeeDTO, HolidayRHCalendar
+from modules.leave.contracts import HolidayRHCalendar
 from modules.leave.models import (
-    LeaveAccount,
-    LeavePolicyConfig,
     HierarchyConfig,
+    LeavePolicyConfig,
+)
+from modules.leave.models import (
     HolidayRHCalendar as ModelHolidayRHCalendar,
 )
 from modules.leave.services.authz import require_admin_config
@@ -29,6 +28,7 @@ from modules.leave.services.authz import require_admin_config
 # -----------------------------------------------------------------------------
 # Policy and Hierarchy Configuration
 # -----------------------------------------------------------------------------
+
 
 @transaction.atomic
 def update_leave_policy(*, config_data: dict[str, Any]) -> LeavePolicyConfig:
@@ -54,22 +54,29 @@ def update_leave_policy(*, config_data: dict[str, Any]) -> LeavePolicyConfig:
             raise ConflictError(f"{key} cannot be negative.")
 
     config = LeavePolicyConfig.objects.get_or_create(
-        is_current=True, defaults={
+        is_current=True,
+        defaults={
             "cl_days": validated_data["cl_days"],
             "rh_days": validated_data["rh_days"],
             "scl_days": validated_data["scl_days"],
             "el_days_staff": validated_data["el_days_staff"],
             "vl_days_faculty": validated_data["vl_days_faculty"],
             "col_days": validated_data["col_days"],
-        }
+        },
     )
 
     # Update existing record
     config[0].update(validated_data)
-    config[0].save(update_fields=[
-        "cl_days", "rh_days", "scl_days",
-        "el_days_staff", "vl_days_faculty", "col_days"
-    ])
+    config[0].save(
+        update_fields=[
+            "cl_days",
+            "rh_days",
+            "scl_days",
+            "el_days_staff",
+            "vl_days_faculty",
+            "col_days",
+        ]
+    )
 
     return config[0]
 
@@ -94,26 +101,27 @@ def update_hierarchy_config(*, config_data: dict[str, Any]) -> HierarchyConfig:
         raise ConflictError("establishment_step_required must be a boolean.")
 
     config = HierarchyConfig.objects.get_or_create(
-        is_current=True, defaults={
+        is_current=True,
+        defaults={
             "unit_head_role": validated_data["unit_head_role"],
             "establishment_step_required": validated_data["establishment_step_required"],
             "director_self_sanction": validated_data["director_self_sanction"],
-        }
+        },
     )
 
     # Update existing record
     config[0].update(validated_data)
-    config[0].save(update_fields=[
-        "unit_head_role",
-        "establishment_step_required",
-        "director_self_sanction"
-    ])
+    config[0].save(
+        update_fields=["unit_head_role", "establishment_step_required", "director_self_sanction"]
+    )
 
     return config[0]
+
 
 # -----------------------------------------------------------------------------
 # Holiday/RH Calendar Management
 # -----------------------------------------------------------------------------
+
 
 @transaction.atomic
 def publish_holiday_calendar(*, calendar_data: dict[str, Any]) -> ModelHolidayRHCalendar:
@@ -133,16 +141,21 @@ def publish_holiday_calendar(*, calendar_data: dict[str, Any]) -> ModelHolidayRH
             raise ConflictError("Each date entry must include 'date' and 'rh_marker'.")
 
     # Check for duplicate dates (enforce uniqueness)
-    existing = ModelHolidayRHCalendar.objects.filter(date__year=dates[0]["date"].year, date__month=dates[0]["date"].month, date__day=dates[0]["date"].day)
+    existing = ModelHolidayRHCalendar.objects.filter(
+        date__year=dates[0]["date"].year,
+        date__month=dates[0]["date"].month,
+        date__day=dates[0]["date"].day,
+    )
     if existing.exists():
         raise ConflictError("Duplicate date already exists in calendar.")
 
     # Create or update the published calendar
     calendar = ModelHolidayRHCalendar.objects.get_or_create(
-        is_published=True, defaults={
+        is_published=True,
+        defaults={
             "dates": dates,
             "is_current": True,
-        }
+        },
     )
 
     if calendar[0].exists():
@@ -155,12 +168,16 @@ def publish_holiday_calendar(*, calendar_data: dict[str, Any]) -> ModelHolidayRH
 
     return calendar[0]
 
+
 # -----------------------------------------------------------------------------
 # Offline Sanctioned Leave Records
 # -----------------------------------------------------------------------------
 
+
 @transaction.atomic
-def record_offline_leave(*, employee_user_id: int, category: str, interval: dict[str, Any], sanction_ref: str) -> Optional[Any]:
+def record_offline_leave(
+    *, employee_user_id: int, category: str, interval: dict[str, Any], sanction_ref: str
+) -> Any | None:
     """Record an already-sanctioned offline leave to synchronize with the system."""
     require_admin_config(
         permission="leave.offline.record",
@@ -175,22 +192,25 @@ def record_offline_leave(*, employee_user_id: int, category: str, interval: dict
     account_type = "CL" if category == "CL" else "EL"
 
     # Create ledger entry for the offline sanction
-    from datetime import date
     start_date = interval["start"]
     end_date = interval["end"]
 
     # Note: Actual implementation would involve complex balance calculations
     # based on BR-EL-011 (Continuous counting) and category rules.
     # This is a placeholder for the record creation logic.
-    
+
     return None  # Placeholder for actual model interaction if LeaveSanctionRecord exists
+
 
 # -----------------------------------------------------------------------------
 # Authorized Leave Record Maintenance
 # -----------------------------------------------------------------------------
 
+
 @transaction.atomic
-def maintain_leave_record(*, employee_user_id: int, action: str, details: dict[str, Any]) -> Optional[Any]:
+def maintain_leave_record(
+    *, employee_user_id: int, action: str, details: dict[str, Any]
+) -> Any | None:
     """Maintain authorized leave records (e.g., adjustments, corrections)."""
     require_admin_config(
         permission="leave.record.maintain",
@@ -208,12 +228,14 @@ def maintain_leave_record(*, employee_user_id: int, action: str, details: dict[s
 
     return None  # Placeholder for actual model interaction
 
+
 # -----------------------------------------------------------------------------
 # SLA Threshold Configuration and Processing
 # -----------------------------------------------------------------------------
 
+
 @transaction.atomic
-def configure_sla_thresholds(*, config_data: dict[str, Any]) -> Optional[Any]:
+def configure_sla_thresholds(*, config_data: dict[str, Any]) -> Any | None:
     """Configure SLA thresholds for reminder and escalation."""
     require_admin_config(
         permission="leave.sla.configure",
@@ -235,9 +257,11 @@ def configure_sla_thresholds(*, config_data: dict[str, Any]) -> Optional[Any]:
     # Store configuration (placeholder for SLAConfig model or similar)
     return None  # Placeholder for actual model interaction
 
+
 # -----------------------------------------------------------------------------
 # Helper Functions
 # -----------------------------------------------------------------------------
+
 
 def get_current_policy() -> LeavePolicyConfig:
     """Retrieve the current leave policy configuration."""

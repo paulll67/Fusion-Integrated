@@ -4,27 +4,24 @@ Provides read-only balance/history access, append-only transaction posting,
 cancellation/restoration adjustments, and approved extension/resumption adjustments.
 Year-end service is separate (ELM-YE-001).
 """
+
 from __future__ import annotations
 
 from datetime import date, timedelta
 from decimal import Decimal
 from typing import Any
 
-from django.db import transaction, connection
+from django.db import transaction
 from django.utils import timezone
 
-from core.api.exceptions import ConflictError, NotFoundError
-from modules.directory.services.sync import get_user_ref
-from modules.leave.contracts import EmployeeDTO
-from modules.leave.domain import leave_policy as pol
+from core.api.exceptions import NotFoundError
 from modules.leave.models import (
     LeaveAccount,
     LeaveLedgerEntry,
     LeaveRequest,
     RequestAction,
 )
-from modules.leave.services.accounts import accounts  # noqa: F401 (self-reference for circular imports if needed, or just placeholder)
-from modules.placement.contracts import get_employees
+from modules.leave.services.accounts import accounts
 
 # TODO: Import Academic Calendar contract when available
 # from modules.academic_calendar.contracts import get_vacation_periods
@@ -189,20 +186,22 @@ class LeaveAccountService:
         # This depends on whether the leave was fully utilized or partially used.
         # For simplicity, we assume full restoration unless specific usage data exists.
         # In a real system, we might query actual attendance records.
-        
+
         with transaction.atomic():
             # Get current balance before cancellation
             current_balance = LeaveAccountService.get_balance(
                 employee_user_id=employee_user_id,
                 category=category,
-                year=year or request.year_end_year if hasattr(request, 'year_end_year') else timezone.now().year,
+                year=year or request.year_end_year
+                if hasattr(request, "year_end_year")
+                else timezone.now().year,
             )
 
             # Calculate restoration amount (assuming full restoration for now)
             # If the leave was partially used, we would need to deduct that usage.
             # For this baseline, we assume cancellation restores the approved amount.
             # We need the approved amount from the request or ledger.
-            
+
             # Find the approval entry
             approval_entry = (
                 LeaveLedgerEntry.objects.filter(
@@ -338,7 +337,7 @@ class LeaveAccountService:
             # Determine adjustment amount
             # If early return, we might need to adjust balance if it was counted as leave
             # If late return, we might need to credit unused days
-            
+
             adjustment_amount = Decimal("0.0")
             adjustment_reason = ""
 
@@ -404,18 +403,15 @@ class LeaveAccountService:
             The created RequestAction instance.
         """
         # This is a simplified implementation. Real logic would aggregate all categories.
-        
+
         with transaction.atomic():
             # Process VL to EL conversion
             # Find unused VL balance
-            vl_account = (
-                LeaveAccount.objects.filter(
-                    employee_user_id=employee_user_id,
-                    category="VL",
-                    year=year,
-                )
-                .first()
-            )
+            vl_account = LeaveAccount.objects.filter(
+                employee_user_id=employee_user_id,
+                category="VL",
+                year=year,
+            ).first()
 
             if vl_account:
                 vl_balance = vl_account.balance
@@ -432,14 +428,11 @@ class LeaveAccountService:
                 )
 
                 # Post EL credit
-                el_account = (
-                    LeaveAccount.objects.filter(
-                        employee_user_id=employee_user_id,
-                        category="EL",
-                        year=year,
-                    )
-                    .first()
-                )
+                el_account = LeaveAccount.objects.filter(
+                    employee_user_id=employee_user_id,
+                    category="EL",
+                    year=year,
+                ).first()
 
                 if not el_account:
                     el_account, _ = LeaveAccount.objects.get_or_create(
@@ -462,7 +455,7 @@ class LeaveAccountService:
 
             # Process CL/RH/SCL lapse (simplified: just log it, no ledger entry needed if balance is 0)
             # In a robust system, we would check for positive balances and zero them out.
-            
+
             action = RequestAction.objects.create(
                 request_id=0,  # No specific request ID for year-end event
                 actor_user_id=employee_user_id,

@@ -10,18 +10,19 @@ All identity references are integer user_id values. Cross-module data
 access must use these public contracts (e.g., get_employees(),
 get_vacation_periods()).
 """
+
 from __future__ import annotations
 
 from collections.abc import Sequence
 from dataclasses import dataclass
 
-from fusion_auth.client import IamUnavailable, get_client
 from modules.directory.models import UserRef
 
 
 @dataclass(frozen=True)
 class EmployeeDTO:
     """Employee projection for leave eligibility and balance checks."""
+
     user_id: int
     username: str
     display_name: str
@@ -30,9 +31,9 @@ class EmployeeDTO:
     department: str = ""
     designation: str = ""
     batch_year: int | None = None
-    
+
     @classmethod
-    def from_ref(cls, r: UserRef) -> "EmployeeDTO":
+    def from_ref(cls, r: UserRef) -> EmployeeDTO:
         return cls(
             user_id=r.user_id,
             username=r.username,
@@ -47,10 +48,10 @@ class EmployeeDTO:
 
 def get_employees(user_ids: Sequence[int] | None = None) -> dict[int, EmployeeDTO]:
     """Batched lookup of employees (faculty/staff).
-    
+
     If user_ids is provided, returns only those users.
     Otherwise, returns all active employees for balance/eligibility checks.
-    
+
     Returns a mapping where missing ids are absent from the result.
     """
     if user_ids:
@@ -60,17 +61,16 @@ def get_employees(user_ids: Sequence[int] | None = None) -> dict[int, EmployeeDT
         # TODO: Use HR employment contract to filter by active employment status
         # from modules.hr.models import Employment
         # employees = UserRef.objects.filter(user_id__in=ids, employment__is_active=True)
-        else:
-            employees = UserRef.objects.filter(user_id__in=ids, is_active=True)
+        employees = UserRef.objects.filter(user_id__in=ids, is_active=True)
     else:
         employees = UserRef.objects.filter(kind__in=("faculty", "staff"), is_active=True)
-    
+
     return {r.user_id: EmployeeDTO.from_ref(r) for r in employees.order_by("user_id")}
 
 
-def get_employee(user_id: int) -> EmployeeDTO | None:
-    """Singular lookup for a specific employee.
-    
+def lookup_employee(user_id: int) -> EmployeeDTO | None:
+    """Look up one employee for internal use.
+
     Returns None if the user does not exist or is inactive.
     """
     try:
@@ -82,31 +82,43 @@ def get_employee(user_id: int) -> EmployeeDTO | None:
 
 def get_faculty() -> list[EmployeeDTO]:
     """Return all active faculty employees."""
-    return [EmployeeDTO.from_ref(r) for r in UserRef.objects.filter(kind="faculty", is_active=True).order_by("user_id")]
+    return [
+        EmployeeDTO.from_ref(r)
+        for r in UserRef.objects.filter(kind="faculty", is_active=True).order_by("user_id")
+    ]
 
 
 def get_staff() -> list[EmployeeDTO]:
     """Return all active staff employees."""
-    return [EmployeeDTO.from_ref(r) for r in UserRef.objects.filter(kind="staff", is_active=True).order_by("user_id")]
+    return [
+        EmployeeDTO.from_ref(r)
+        for r in UserRef.objects.filter(kind="staff", is_active=True).order_by("user_id")
+    ]
 
 
 def held_employee_ids() -> set[int]:
     """Set of all active employee user IDs (faculty and staff)."""
-    return {r.user_id for r in UserRef.objects.filter(kind__in=("faculty", "staff"), is_active=True)}
+    return {
+        r.user_id for r in UserRef.objects.filter(kind__in=("faculty", "staff"), is_active=True)
+    }
 
 
-def get_users_in_discipline(discipline: str) -> list[int]:
-    """Return user IDs of active students in a specific discipline."""
-    return [r.user_id for r in UserRef.objects.filter(kind="student", discipline=discipline, is_active=True)]
+def users_in_disciplines(disciplines: Sequence[str]) -> dict[str, list[int]]:
+    """Return active student IDs grouped by discipline."""
+    rows = UserRef.objects.filter(kind="student", discipline__in=disciplines, is_active=True)
+    result = {discipline: [] for discipline in disciplines}
+    for row in rows:
+        result.setdefault(row.discipline, []).append(row.user_id)
+    return result
 
 
 def search_employees(q: str = "", kind: str | None = None) -> list[EmployeeDTO]:
     """Search employees by name or kind.
-    
+
     Args:
         q: Search term for display_name.
         kind: Filter by 'faculty' or 'staff'.
-    
+
     Returns:
         List of EmployeeDTO objects ordered by display_name.
     """
@@ -120,22 +132,25 @@ def search_employees(q: str = "", kind: str | None = None) -> list[EmployeeDTO]:
 
 # --- External Data Contracts (No Direct DB Access) ---
 
-def get_vacation_periods(year: int, faculty_user_id: int | None = None) -> list[dict]:
+
+def vacation_periods_for_years(
+    years: Sequence[int], faculty_user_id: int | None = None
+) -> list[dict]:
     """Fetch vacation periods for the Academic Calendar.
-    
+
     This is a placeholder contract. In production, this should call
     an external service or module (e.g., modules.academic_calendar).
-    
+
     Args:
         year: The academic year (e.g., 2026).
         faculty_user_id: Optional filter for specific faculty member's periods.
-    
+
     Returns:
         List of dictionaries representing vacation periods with keys:
         - 'start_date': str (YYYY-MM-DD)
         - 'end_date': str (YYYY-MM-DD)
         - 'is_valid_for_leave': bool
-    
+
     Raises:
         IamUnavailable: If the external service is unreachable.
     """
@@ -146,18 +161,18 @@ def get_vacation_periods(year: int, faculty_user_id: int | None = None) -> list[
     #     return service.get_vacation_periods(year, faculty_user_id)
     # except IamUnavailable:
     #     raise
-    
+
     # Fallback for local development / missing dependency:
     return []
 
 
 def is_date_in_vacation_period(date_str: str, year: int) -> bool:
     """Check if a date falls within an applicable vacation period.
-    
+
     Args:
         date_str: Date string in YYYY-MM-DD format.
         year: The academic year to check against.
-    
+
     Returns:
         True if the date is within a published vacation period for the year.
     """
@@ -170,17 +185,17 @@ def is_date_in_vacation_period(date_str: str, year: int) -> bool:
     return False
 
 
-def get_restricted_holidays(year: int) -> list[dict]:
+def restricted_holidays_for_years(years: Sequence[int]) -> list[dict]:
     """Fetch currently effective published Restricted Holidays.
-    
+
     This is a placeholder contract. In production, this should call
     an external service or module (e.g., modules.academic_calendar).
-    
+
     Returns:
         List of dictionaries representing holidays with keys:
         - 'date': str (YYYY-MM-DD)
         - 'name': str
-    
+
     Raises:
         IamUnavailable: If the external service is unreachable.
     """
@@ -191,27 +206,28 @@ def get_restricted_holidays(year: int) -> list[dict]:
     #     return service.get_restricted_holidays(year)
     # except IamUnavailable:
     #     raise
-    
+
     # Fallback for local development / missing dependency:
     return []
 
 
 def is_date_restricted_holiday(date_str: str, year: int) -> bool:
     """Check if a date is a currently effective Restricted Holiday.
-    
+
     Args:
         date_str: Date string in YYYY-MM-DD format.
         year: The academic year to check against.
-    
+
     Returns:
         True if the date is a published RH for the year.
     """
     # TODO: Implement actual logic using Holiday/RH Calendar data
-    holidays = get_restricted_holidays(year)
-    return any(h['date'] == date_str for h in holidays)
+    holidays = restricted_holidays_for_years([year])
+    return any(h["date"] == date_str for h in holidays)
 
 
 # --- Utility Functions ---
+
 
 def parse_date(date_str: str) -> tuple[int, int, int]:
     """Parse a date string into (year, month, day)."""
@@ -230,9 +246,8 @@ def days_in_month(year: int, month: int) -> int:
     """Get the number of days in a specific month."""
     if month in (1, 3, 5, 7, 8, 10, 12):
         return 31
-    elif month in (4, 6, 9, 11):
+    if month in (4, 6, 9, 11):
         return 30
-    elif month == 2:
+    if month == 2:
         return 29 if is_leap_year(year) else 28
-    else:
-        raise ValueError(f"Invalid month: {month}")
+    raise ValueError(f"Invalid month: {month}")

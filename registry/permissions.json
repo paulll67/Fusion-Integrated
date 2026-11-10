@@ -34,6 +34,216 @@
       "scope_permissions": [],
       "system_permissions": []
     },
+    "leave": {
+      "grants": {
+        "employee": [
+          "leave.balance.view",
+          "leave.history.view",
+          "leave.request.create",
+          "leave.request.export",
+          "leave.request.revoke",
+          "leave.request.view_self",
+          "leave.resumption.create"
+        ],
+        "leave_administrator": [
+          "leave.calendar.manage",
+          "leave.calendar.publish",
+          "leave.hierarchy.manage",
+          "leave.policy.manage",
+          "leave.record.manage",
+          "leave.request.export",
+          "leave.request.view",
+          "leave.sla.manage",
+          "leave.workflow_task.assign",
+          "leave.workflow_task.update",
+          "leave.workflow_task.view"
+        ],
+        "sanctioning_authority": [
+          "leave.balance.view",
+          "leave.request.approve",
+          "leave.request.review",
+          "leave.request.view",
+          "leave.workflow_task.update",
+          "leave.workflow_task.view"
+        ],
+        "unit_head": [
+          "leave.balance.view",
+          "leave.request.review",
+          "leave.request.view",
+          "leave.workflow_task.assign",
+          "leave.workflow_task.update",
+          "leave.workflow_task.view"
+        ]
+      },
+      "module_grants": [
+        "employee",
+        "leave_administrator",
+        "sanctioning_authority",
+        "unit_head"
+      ],
+      "nav": {
+        "base_path": "/leave",
+        "icon": "calendar-check",
+        "items": [
+          {
+            "code": "leave.mine",
+            "icon": "UserCheck",
+            "label": "My Leave Requests",
+            "required_permission": "leave.request.view_self",
+            "sort_order": 5,
+            "to": "/leave/mine"
+          },
+          {
+            "code": "leave.balances",
+            "icon": "CalendarAlt",
+            "label": "Leave Balances",
+            "required_permission": "leave.balance.view",
+            "sort_order": 10,
+            "to": "/leave/balances"
+          },
+          {
+            "code": "leave.history",
+            "icon": "History",
+            "label": "Leave History",
+            "required_permission": "leave.history.view",
+            "sort_order": 15,
+            "to": "/leave/history"
+          },
+          {
+            "code": "leave.create",
+            "icon": "PlusCircle",
+            "label": "Apply for Leave",
+            "required_permission": "leave.request.create",
+            "sort_order": 25,
+            "to": "/leave/create"
+          },
+          {
+            "code": "leave.tasks",
+            "icon": "Tasks",
+            "label": "My Tasks",
+            "required_permission": "leave.workflow_task.view",
+            "sort_order": 50,
+            "to": "/leave/tasks"
+          },
+          {
+            "code": "leave.request.detail",
+            "icon": "FileText",
+            "label": "Request Details",
+            "required_permission": "leave.request.view_self",
+            "sort_order": 55,
+            "to": "/leave/request/:id"
+          },
+          {
+            "code": "leave.admin.policy",
+            "icon": "Cog",
+            "label": "Policy Configuration",
+            "required_permission": "leave.policy.manage",
+            "sort_order": 60,
+            "to": "/leave/admin/policy"
+          },
+          {
+            "code": "leave.admin.calendar",
+            "icon": "CalendarAlt",
+            "label": "Holiday/RH Calendar",
+            "required_permission": "leave.calendar.manage",
+            "sort_order": 65,
+            "to": "/leave/admin/calendar"
+          },
+          {
+            "code": "leave.admin.records",
+            "icon": "FileText",
+            "label": "Leave Records Maintenance",
+            "required_permission": "leave.record.manage",
+            "sort_order": 70,
+            "to": "/leave/admin/records"
+          }
+        ],
+        "label": "Leave",
+        "nav_section": "Employee Services",
+        "sort_order": 15,
+        "status": "active"
+      },
+      "permissions": [
+        {
+          "code": "leave.request.view",
+          "label": "View leave requests within scope"
+        },
+        {
+          "code": "leave.request.view_self",
+          "label": "View own leave requests"
+        },
+        {
+          "code": "leave.request.create",
+          "label": "Create a new leave application"
+        },
+        {
+          "code": "leave.request.review",
+          "label": "Review leave applications"
+        },
+        {
+          "code": "leave.request.approve",
+          "label": "Approve or reject leave applications"
+        },
+        {
+          "code": "leave.request.revoke",
+          "label": "Withdraw or cancel leave requests"
+        },
+        {
+          "code": "leave.request.export",
+          "label": "Export leave applications"
+        },
+        {
+          "code": "leave.workflow_task.view",
+          "label": "View assigned workflow tasks"
+        },
+        {
+          "code": "leave.workflow_task.update",
+          "label": "Update workflow task status"
+        },
+        {
+          "code": "leave.workflow_task.assign",
+          "label": "Assign workflow tasks"
+        },
+        {
+          "code": "leave.balance.view",
+          "label": "View leave balances"
+        },
+        {
+          "code": "leave.history.view",
+          "label": "View leave request history"
+        },
+        {
+          "code": "leave.resumption.create",
+          "label": "Submit leave resumption"
+        },
+        {
+          "code": "leave.policy.manage",
+          "label": "Manage leave policy configuration"
+        },
+        {
+          "code": "leave.hierarchy.manage",
+          "label": "Manage routing hierarchy configuration"
+        },
+        {
+          "code": "leave.calendar.manage",
+          "label": "Manage holiday and restricted-holiday calendars"
+        },
+        {
+          "code": "leave.calendar.publish",
+          "label": "Publish a holiday and restricted-holiday calendar"
+        },
+        {
+          "code": "leave.record.manage",
+          "label": "Maintain authorized leave records"
+        },
+        {
+          "code": "leave.sla.manage",
+          "label": "Configure workflow SLA thresholds"
+        }
+      ],
+      "scope_permissions": [],
+      "system_permissions": []
+    },
     "placement_cell": {
       "grants": {
         "Dean Academic": [

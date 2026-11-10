@@ -11,16 +11,12 @@ Identity references: Integer user_id values; cross-module data uses public contr
 
 from __future__ import annotations
 
-from datetime import date, datetime, timedelta
-from decimal import Decimal
-from enum import Enum
-from typing import Optional
+from datetime import datetime
 
 from django.db import models
-from django.core.validators import MinValueValidator
+
 from core.db.mixins import TimeStampedModel, UserScopedModel
 from modules.directory.contracts import get_employees
-from modules.leave.contracts import EmployeeDTO
 
 
 class LeaveCategory(models.TextChoices):
@@ -113,7 +109,7 @@ class LeaveRequest(TimeStampedModel, UserScopedModel):
     category = models.CharField(max_length=2, choices=CATEGORY_CHOICES)
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, default=RequestStatus.DRAFT)
     submitted_at = models.DateTimeField(null=True, blank=True)
-    
+
     # Period details
     start_date = models.DateField()
     end_date = models.DateField()
@@ -129,15 +125,17 @@ class LeaveRequest(TimeStampedModel, UserScopedModel):
 
     # Purpose and details
     purpose = models.TextField(blank=True)
-    station_leave_type = models.CharField(max_length=20, choices=STATION_LEAVE_TYPE_CHOICES, blank=True)
-    
+    station_leave_type = models.CharField(
+        max_length=20, choices=STATION_LEAVE_TYPE_CHOICES, blank=True
+    )
+
     # Station Leave specific fields
     intra_dept_days = models.PositiveIntegerField(default=0)
     inter_dept_days = models.PositiveIntegerField(default=0)
     inter_org_days = models.PositiveIntegerField(default=0)
-    
+
     # Substitute management
-    substitute_user_id: Optional[int] = None
+    substitute_user_id: int | None = None
     substitute_response_status = models.CharField(
         max_length=50,
         choices=[
@@ -147,24 +145,24 @@ class LeaveRequest(TimeStampedModel, UserScopedModel):
         ],
         default="pending",
     )
-    replacement_user_id: Optional[int] = None
-    
+    replacement_user_id: int | None = None
+
     # Links to related records
-    extension_request: Optional["LeaveRequest"] = models.ForeignKey(
+    extension_request: LeaveRequest | None = models.ForeignKey(
         "LeaveRequest",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
         related_name="base_requests",
     )
-    resumption_record: Optional["ResumptionRecord"] = models.OneToOneField(
+    resumption_record: ResumptionRecord | None = models.OneToOneField(
         "ResumptionRecord",
         on_delete=models.CASCADE,
         null=True,
         blank=True,
         related_name="original_request",
     )
-    
+
     # Metadata
     created_by_user_id = models.IntegerField()
     notes = models.TextField(blank=True)
@@ -177,7 +175,7 @@ class LeaveRequest(TimeStampedModel, UserScopedModel):
                 name="unique_leave_period_per_employee",
             ),
             models.CheckConstraint(
-                check=models.Q(start_date__lte=end_date),
+                check=models.Q(start_date__lte=models.F("end_date")),
                 name="valid_dates",
             ),
         ]
@@ -265,7 +263,7 @@ class LeaveRequest(TimeStampedModel, UserScopedModel):
 
     # --- Actions (Public API) ---
 
-    def submit(self, created_by_user_id: int) -> "LeaveRequest":
+    def submit(self, created_by_user_id: int) -> LeaveRequest:
         """Submit a new draft request."""
         if self.is_draft:
             self.status = RequestStatus.AWAITING_UNIT_HEAD_REVIEW
@@ -275,7 +273,7 @@ class LeaveRequest(TimeStampedModel, UserScopedModel):
             self.save(update_fields=["status", "submitted_at"])
         return self
 
-    def accept_substitute(self, actor_user_id: int) -> "LeaveRequest":
+    def accept_substitute(self, actor_user_id: int) -> LeaveRequest:
         """Accept a substitute assignment."""
         if self.status == RequestStatus.AWAITING_SUBSTITUTE_RESPONSE:
             self.substitute_response_status = "accepted"
@@ -286,7 +284,7 @@ class LeaveRequest(TimeStampedModel, UserScopedModel):
             self.save(update_fields=["substitute_response_status", "status"])
         return self
 
-    def decline_substitute(self, actor_user_id: int) -> "LeaveRequest":
+    def decline_substitute(self, actor_user_id: int) -> LeaveRequest:
         """Decline a substitute assignment."""
         if self.status == RequestStatus.AWAITING_SUBSTITUTE_RESPONSE:
             self.substitute_response_status = "declined"
@@ -296,7 +294,7 @@ class LeaveRequest(TimeStampedModel, UserScopedModel):
             self.save(update_fields=["substitute_response_status", "status"])
         return self
 
-    def nominate_replacement(self, actor_user_id: int) -> "LeaveRequest":
+    def nominate_replacement(self, actor_user_id: int) -> LeaveRequest:
         """Nominate a replacement after decline."""
         if self.substitute_response_status == "declined" and not self.replacement_user_id:
             # Set the replacement user ID
@@ -304,7 +302,7 @@ class LeaveRequest(TimeStampedModel, UserScopedModel):
             pass
         return self
 
-    def unit_head_approve(self, actor_user_id: int) -> "LeaveRequest":
+    def unit_head_approve(self, actor_user_id: int) -> LeaveRequest:
         """Record Unit Head approval."""
         if self.status in (
             RequestStatus.AWAITING_UNIT_HEAD_REVIEW,
@@ -315,28 +313,28 @@ class LeaveRequest(TimeStampedModel, UserScopedModel):
             self.save(update_fields=["status"])
         return self
 
-    def unit_head_reject(self, actor_user_id: int) -> "LeaveRequest":
+    def unit_head_reject(self, actor_user_id: int) -> LeaveRequest:
         """Record Unit Head rejection."""
         if self.status == RequestStatus.AWAITING_UNIT_HEAD_REVIEW:
             self.status = RequestStatus.REJECTED
             self.save(update_fields=["status"])
         return self
 
-    def higher_sanction_approve(self, actor_user_id: int) -> "LeaveRequest":
+    def higher_sanction_approve(self, actor_user_id: int) -> LeaveRequest:
         """Record Higher Sanction approval."""
         if self.status == RequestStatus.AWAITING_HIGHER_SANCTION:
             self.status = RequestStatus.APPROVED
             self.save(update_fields=["status"])
         return self
 
-    def higher_sanction_reject(self, actor_user_id: int) -> "LeaveRequest":
+    def higher_sanction_reject(self, actor_user_id: int) -> LeaveRequest:
         """Record Higher Sanction rejection."""
         if self.status == RequestStatus.AWAITING_HIGHER_SANCTION:
             self.status = RequestStatus.REJECTED
             self.save(update_fields=["status"])
         return self
 
-    def withdraw(self, actor_user_id: int) -> "LeaveRequest":
+    def withdraw(self, actor_user_id: int) -> LeaveRequest:
         """Withdraw a pending request."""
         if self.status in (
             RequestStatus.DRAFT,
@@ -348,7 +346,7 @@ class LeaveRequest(TimeStampedModel, UserScopedModel):
             self.save(update_fields=["status"])
         return self
 
-    def cancel(self, actor_user_id: int) -> "LeaveRequest":
+    def cancel(self, actor_user_id: int) -> LeaveRequest:
         """Cancel an approved leave before start."""
         if self.is_approved and self.start_date > datetime.now().date():
             # Restore balance logic handled in Ledger/Account layer
@@ -356,7 +354,7 @@ class LeaveRequest(TimeStampedModel, UserScopedModel):
             self.save(update_fields=["status"])
         return self
 
-    def extend(self, actor_user_id: int) -> "LeaveRequest":
+    def extend(self, actor_user_id: int) -> LeaveRequest:
         """Start an extension request."""
         # Creates a new record linked to this one
         if self.status == RequestStatus.APPROVED:
@@ -365,7 +363,7 @@ class LeaveRequest(TimeStampedModel, UserScopedModel):
             pass
         return self
 
-    def resume_submit(self, actor_user_id: int) -> "ResumptionRecord":
+    def resume_submit(self, actor_user_id: int) -> ResumptionRecord:
         """Submit actual resumption of duty."""
         if self.status == RequestStatus.APPROVED:
             # TODO: Validate resumption applicability (BR-EL-027)
@@ -376,7 +374,7 @@ class LeaveRequest(TimeStampedModel, UserScopedModel):
             )
         return None
 
-    def resume_review_approve(self, actor_user_id: int) -> "ResumptionRecord":
+    def resume_review_approve(self, actor_user_id: int) -> ResumptionRecord:
         """Review and approve resumption."""
         if self.status == RequestStatus.RESUMPTION_REVIEW_PENDING:
             # Sync balance/period if early/late (BR-EL-028)
@@ -388,7 +386,7 @@ class LeaveRequest(TimeStampedModel, UserScopedModel):
             )
         return None
 
-    def resume_review_reject(self, actor_user_id: int) -> "ResumptionRecord":
+    def resume_review_reject(self, actor_user_id: int) -> ResumptionRecord:
         """Review and reject resumption."""
         if self.status == RequestStatus.RESUMPTION_REVIEW_PENDING:
             # Handle rejection logic (e.g., re-assign leave)
@@ -402,7 +400,9 @@ class LeaveRequest(TimeStampedModel, UserScopedModel):
 
     # --- History Management ---
 
-    def add_action_history(self, action_label: str, outcome: str = "", reason: str = "") -> RequestActionHistory:
+    def add_action_history(
+        self, action_label: str, outcome: str = "", reason: str = ""
+    ) -> RequestActionHistory:
         """Append an entry to the action history."""
         history = RequestActionHistory.objects.create(
             request=self,
@@ -447,7 +447,9 @@ class ResumptionRecord(TimeStampedModel, UserScopedModel):
     )
     actor_user_id = models.IntegerField()
     actual_resumption_date = models.DateField()
-    review_outcome = models.CharField(max_length=50, choices=[("approved", "Approved"), ("rejected", "Rejected")])
+    review_outcome = models.CharField(
+        max_length=50, choices=[("approved", "Approved"), ("rejected", "Rejected")]
+    )
     notes = models.TextField(blank=True)
 
     class Meta:

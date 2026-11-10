@@ -13,6 +13,30 @@ For the intended taxonomy of modules not yet built, see
 |---|---|---|
 | `directory.user.search` | Search the institute directory | `Dean Academic`, `acadadmin`, `placement_chairman`, `placement_coordinator`, `placement_officer` |
 
+## `leave`
+
+| Code | What it allows | Held by |
+|---|---|---|
+| `leave.request.view` | View leave requests within scope | `leave_administrator`, `sanctioning_authority`, `unit_head` |
+| `leave.request.view_self` | View own leave requests | `employee` |
+| `leave.request.create` | Create a new leave application | `employee` |
+| `leave.request.review` | Review leave applications | `sanctioning_authority`, `unit_head` |
+| `leave.request.approve` | Approve or reject leave applications | `sanctioning_authority` |
+| `leave.request.revoke` | Withdraw or cancel leave requests | `employee` |
+| `leave.request.export` | Export leave applications | `employee`, `leave_administrator` |
+| `leave.workflow_task.view` | View assigned workflow tasks | `leave_administrator`, `sanctioning_authority`, `unit_head` |
+| `leave.workflow_task.update` | Update workflow task status | `leave_administrator`, `sanctioning_authority`, `unit_head` |
+| `leave.workflow_task.assign` | Assign workflow tasks | `leave_administrator`, `unit_head` |
+| `leave.balance.view` | View leave balances | `employee`, `sanctioning_authority`, `unit_head` |
+| `leave.history.view` | View leave request history | `employee` |
+| `leave.resumption.create` | Submit leave resumption | `employee` |
+| `leave.policy.manage` | Manage leave policy configuration | `leave_administrator` |
+| `leave.hierarchy.manage` | Manage routing hierarchy configuration | `leave_administrator` |
+| `leave.calendar.manage` | Manage holiday and restricted-holiday calendars | `leave_administrator` |
+| `leave.calendar.publish` | Publish a holiday and restricted-holiday calendar | `leave_administrator` |
+| `leave.record.manage` | Maintain authorized leave records | `leave_administrator` |
+| `leave.sla.manage` | Configure workflow SLA thresholds | `leave_administrator` |
+
 ## `placement_cell`
 
 | Code | What it allows | Held by |
