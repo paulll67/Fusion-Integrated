@@ -1,0 +1,245 @@
+﻿[
+    {
+        "test_id":  "A9-WF-001",
+        "source_id":  "BW-EL-01: New CL/RH â€” No Substitute Gate",
+        "purpose":  "Verify the specified workflow path and state transitions for BW-EL-01.",
+        "preconditions":  "The actors, policy, hierarchy, calendar, and prerequisite records described by the workflow are available.",
+        "action_or_input":  "Execute the BW-EL-01 workflow through its specified gate, routing, and terminal outcome.",
+        "expected_result":  "All specified states, gates, routing decisions, notifications, and terminal outcomes for BW-EL-01 occur in order.",
+        "test_type":  "positive"
+    },
+    {
+        "test_id":  "A9-WF-002",
+        "source_id":  "BW-EL-02: New CL/RH â€” Substitute Accepted (No Loop)",
+        "purpose":  "Verify the specified workflow path and state transitions for BW-EL-02.",
+        "preconditions":  "The actors, policy, hierarchy, calendar, and prerequisite records described by the workflow are available.",
+        "action_or_input":  "Execute the BW-EL-02 workflow through its specified gate, routing, and terminal outcome.",
+        "expected_result":  "All specified states, gates, routing decisions, notifications, and terminal outcomes for BW-EL-02 occur in order.",
+        "test_type":  "positive"
+    },
+    {
+        "test_id":  "A9-WF-003",
+        "source_id":  "BW-EL-03: New CL/RH â€” Substitute Declined, Replacement Accepted (One Loop Traversal)",
+        "purpose":  "Verify the specified workflow path and state transitions for BW-EL-03.",
+        "preconditions":  "The actors, policy, hierarchy, calendar, and prerequisite records described by the workflow are available.",
+        "action_or_input":  "Execute the BW-EL-03 workflow through its specified gate, routing, and terminal outcome.",
+        "expected_result":  "All specified states, gates, routing decisions, notifications, and terminal outcomes for BW-EL-03 occur in order.",
+        "test_type":  "positive"
+    },
+    {
+        "test_id":  "A9-WF-004",
+        "source_id":  "BW-EL-04: New Higher-Sanction Leave â€” No Substitute Gate",
+        "purpose":  "Verify the specified workflow path and state transitions for BW-EL-04.",
+        "preconditions":  "The actors, policy, hierarchy, calendar, and prerequisite records described by the workflow are available.",
+        "action_or_input":  "Execute the BW-EL-04 workflow through its specified gate, routing, and terminal outcome.",
+        "expected_result":  "All specified states, gates, routing decisions, notifications, and terminal outcomes for BW-EL-04 occur in order.",
+        "test_type":  "positive"
+    },
+    {
+        "test_id":  "A9-WF-005",
+        "source_id":  "BW-EL-05: New Higher-Sanction Leave â€” Substitute Accepted (No Loop)",
+        "purpose":  "Verify the specified workflow path and state transitions for BW-EL-05.",
+        "preconditions":  "The actors, policy, hierarchy, calendar, and prerequisite records described by the workflow are available.",
+        "action_or_input":  "Execute the BW-EL-05 workflow through its specified gate, routing, and terminal outcome.",
+        "expected_result":  "All specified states, gates, routing decisions, notifications, and terminal outcomes for BW-EL-05 occur in order.",
+        "test_type":  "positive"
+    },
+    {
+        "test_id":  "A9-WF-006",
+        "source_id":  "BW-EL-06: New Higher-Sanction Leave â€” Substitute Declined, Replacement Accepted (One Loop Traversal)",
+        "purpose":  "Verify the specified workflow path and state transitions for BW-EL-06.",
+        "preconditions":  "The actors, policy, hierarchy, calendar, and prerequisite records described by the workflow are available.",
+        "action_or_input":  "Execute the BW-EL-06 workflow through its specified gate, routing, and terminal outcome.",
+        "expected_result":  "All specified states, gates, routing decisions, notifications, and terminal outcomes for BW-EL-06 occur in order.",
+        "test_type":  "positive"
+    },
+    {
+        "test_id":  "A9-WF-007",
+        "source_id":  "BW-EL-07: Director Self-Sanction â€” No Substitute Gate",
+        "purpose":  "Verify the specified workflow path and state transitions for BW-EL-07.",
+        "preconditions":  "The actors, policy, hierarchy, calendar, and prerequisite records described by the workflow are available.",
+        "action_or_input":  "Execute the BW-EL-07 workflow through its specified gate, routing, and terminal outcome.",
+        "expected_result":  "All specified states, gates, routing decisions, notifications, and terminal outcomes for BW-EL-07 occur in order.",
+        "test_type":  "positive"
+    },
+    {
+        "test_id":  "A9-WF-008",
+        "source_id":  "BW-EL-08: Director Self-Sanction â€” Substitute Accepted (No Loop)",
+        "purpose":  "Verify the specified workflow path and state transitions for BW-EL-08.",
+        "preconditions":  "The actors, policy, hierarchy, calendar, and prerequisite records described by the workflow are available.",
+        "action_or_input":  "Execute the BW-EL-08 workflow through its specified gate, routing, and terminal outcome.",
+        "expected_result":  "All specified states, gates, routing decisions, notifications, and terminal outcomes for BW-EL-08 occur in order.",
+        "test_type":  "positive"
+    },
+    {
+        "test_id":  "A9-WF-009",
+        "source_id":  "BW-EL-09: Director Self-Sanction â€” Substitute Declined, Replacement Accepted (One Loop Traversal)",
+        "purpose":  "Verify the specified workflow path and state transitions for BW-EL-09.",
+        "preconditions":  "The actors, policy, hierarchy, calendar, and prerequisite records described by the workflow are available.",
+        "action_or_input":  "Execute the BW-EL-09 workflow through its specified gate, routing, and terminal outcome.",
+        "expected_result":  "All specified states, gates, routing decisions, notifications, and terminal outcomes for BW-EL-09 occur in order.",
+        "test_type":  "positive"
+    },
+    {
+        "test_id":  "A9-WF-010",
+        "source_id":  "BW-EL-10: CL/RH Approved-Leave Cancellation",
+        "purpose":  "Verify the specified workflow path and state transitions for BW-EL-10.",
+        "preconditions":  "The actors, policy, hierarchy, calendar, and prerequisite records described by the workflow are available.",
+        "action_or_input":  "Execute the BW-EL-10 workflow through its specified gate, routing, and terminal outcome.",
+        "expected_result":  "All specified states, gates, routing decisions, notifications, and terminal outcomes for BW-EL-10 occur in order.",
+        "test_type":  "transition"
+    },
+    {
+        "test_id":  "A9-WF-011",
+        "source_id":  "BW-EL-11: Higher-Sanction Approved-Leave Cancellation",
+        "purpose":  "Verify the specified workflow path and state transitions for BW-EL-11.",
+        "preconditions":  "The actors, policy, hierarchy, calendar, and prerequisite records described by the workflow are available.",
+        "action_or_input":  "Execute the BW-EL-11 workflow through its specified gate, routing, and terminal outcome.",
+        "expected_result":  "All specified states, gates, routing decisions, notifications, and terminal outcomes for BW-EL-11 occur in order.",
+        "test_type":  "transition"
+    },
+    {
+        "test_id":  "A9-WF-012",
+        "source_id":  "BW-EL-12: Ongoing Leave Extension â€” No Substitute Gate",
+        "purpose":  "Verify the specified workflow path and state transitions for BW-EL-12.",
+        "preconditions":  "The actors, policy, hierarchy, calendar, and prerequisite records described by the workflow are available.",
+        "action_or_input":  "Execute the BW-EL-12 workflow through its specified gate, routing, and terminal outcome.",
+        "expected_result":  "All specified states, gates, routing decisions, notifications, and terminal outcomes for BW-EL-12 occur in order.",
+        "test_type":  "transition"
+    },
+    {
+        "test_id":  "A9-WF-013",
+        "source_id":  "BW-EL-13: Ongoing Leave Extension â€” Substitute Accepted (No Loop)",
+        "purpose":  "Verify the specified workflow path and state transitions for BW-EL-13.",
+        "preconditions":  "The actors, policy, hierarchy, calendar, and prerequisite records described by the workflow are available.",
+        "action_or_input":  "Execute the BW-EL-13 workflow through its specified gate, routing, and terminal outcome.",
+        "expected_result":  "All specified states, gates, routing decisions, notifications, and terminal outcomes for BW-EL-13 occur in order.",
+        "test_type":  "transition"
+    },
+    {
+        "test_id":  "A9-WF-014",
+        "source_id":  "BW-EL-14: Ongoing Leave Extension â€” Substitute Declined, Replacement Accepted (One Loop Traversal)",
+        "purpose":  "Verify the specified workflow path and state transitions for BW-EL-14.",
+        "preconditions":  "The actors, policy, hierarchy, calendar, and prerequisite records described by the workflow are available.",
+        "action_or_input":  "Execute the BW-EL-14 workflow through its specified gate, routing, and terminal outcome.",
+        "expected_result":  "All specified states, gates, routing decisions, notifications, and terminal outcomes for BW-EL-14 occur in order.",
+        "test_type":  "transition"
+    },
+    {
+        "test_id":  "A9-WF-015",
+        "source_id":  "BW-EL-15: Normal Resumption Review",
+        "purpose":  "Verify the specified workflow path and state transitions for BW-EL-15.",
+        "preconditions":  "The actors, policy, hierarchy, calendar, and prerequisite records described by the workflow are available.",
+        "action_or_input":  "Execute the BW-EL-15 workflow through its specified gate, routing, and terminal outcome.",
+        "expected_result":  "All specified states, gates, routing decisions, notifications, and terminal outcomes for BW-EL-15 occur in order.",
+        "test_type":  "transition"
+    },
+    {
+        "test_id":  "A9-WF-016",
+        "source_id":  "BW-EL-16: Early Resumption Review",
+        "purpose":  "Verify the specified workflow path and state transitions for BW-EL-16.",
+        "preconditions":  "The actors, policy, hierarchy, calendar, and prerequisite records described by the workflow are available.",
+        "action_or_input":  "Execute the BW-EL-16 workflow through its specified gate, routing, and terminal outcome.",
+        "expected_result":  "All specified states, gates, routing decisions, notifications, and terminal outcomes for BW-EL-16 occur in order.",
+        "test_type":  "transition"
+    },
+    {
+        "test_id":  "A9-WF-017",
+        "source_id":  "BW-EL-17: Late Resumption Review",
+        "purpose":  "Verify the specified workflow path and state transitions for BW-EL-17.",
+        "preconditions":  "The actors, policy, hierarchy, calendar, and prerequisite records described by the workflow are available.",
+        "action_or_input":  "Execute the BW-EL-17 workflow through its specified gate, routing, and terminal outcome.",
+        "expected_result":  "All specified states, gates, routing decisions, notifications, and terminal outcomes for BW-EL-17 occur in order.",
+        "test_type":  "transition"
+    },
+    {
+        "test_id":  "A9-WF-018",
+        "source_id":  "CW-EL-01: New Leave Processing and Pending Withdrawal",
+        "purpose":  "Verify the specified workflow path and state transitions for CW-EL-01.",
+        "preconditions":  "The actors, policy, hierarchy, calendar, and prerequisite records described by the workflow are available.",
+        "action_or_input":  "Execute the CW-EL-01 workflow through its specified gate, routing, and terminal outcome.",
+        "expected_result":  "All specified states, gates, routing decisions, notifications, and terminal outcomes for CW-EL-01 occur in order.",
+        "test_type":  "negative"
+    },
+    {
+        "test_id":  "A9-WF-019",
+        "source_id":  "CW-EL-02: Approved Leave Cancellation",
+        "purpose":  "Verify the specified workflow path and state transitions for CW-EL-02.",
+        "preconditions":  "The actors, policy, hierarchy, calendar, and prerequisite records described by the workflow are available.",
+        "action_or_input":  "Execute the CW-EL-02 workflow through its specified gate, routing, and terminal outcome.",
+        "expected_result":  "All specified states, gates, routing decisions, notifications, and terminal outcomes for CW-EL-02 occur in order.",
+        "test_type":  "transition"
+    },
+    {
+        "test_id":  "A9-WF-020",
+        "source_id":  "CW-EL-03: Ongoing Leave Extension",
+        "purpose":  "Verify the specified workflow path and state transitions for CW-EL-03.",
+        "preconditions":  "The actors, policy, hierarchy, calendar, and prerequisite records described by the workflow are available.",
+        "action_or_input":  "Execute the CW-EL-03 workflow through its specified gate, routing, and terminal outcome.",
+        "expected_result":  "All specified states, gates, routing decisions, notifications, and terminal outcomes for CW-EL-03 occur in order.",
+        "test_type":  "transition"
+    },
+    {
+        "test_id":  "A9-WF-021",
+        "source_id":  "CW-EL-04: Resumption Review",
+        "purpose":  "Verify the specified workflow path and state transitions for CW-EL-04.",
+        "preconditions":  "The actors, policy, hierarchy, calendar, and prerequisite records described by the workflow are available.",
+        "action_or_input":  "Execute the CW-EL-04 workflow through its specified gate, routing, and terminal outcome.",
+        "expected_result":  "All specified states, gates, routing decisions, notifications, and terminal outcomes for CW-EL-04 occur in order.",
+        "test_type":  "transition"
+    },
+    {
+        "test_id":  "A9-WF-022",
+        "source_id":  "WF-EL-01: Apply and Decide Leave",
+        "purpose":  "Verify the workflow disposition and semantics specified for WF-EL-01.",
+        "preconditions":  "The event or request described by the workflow is present.",
+        "action_or_input":  "Trigger WF-EL-01 according to the specification.",
+        "expected_result":  "The workflow is executed or excluded exactly as specified, without creating unsupported approval or transition behavior.",
+        "test_type":  "transition"
+    },
+    {
+        "test_id":  "A9-WF-023",
+        "source_id":  "WF-EL-02: Modify or Withdraw Pending Request",
+        "purpose":  "Verify the workflow disposition and semantics specified for WF-EL-02.",
+        "preconditions":  "The event or request described by the workflow is present.",
+        "action_or_input":  "Trigger WF-EL-02 according to the specification.",
+        "expected_result":  "The workflow is executed or excluded exactly as specified, without creating unsupported approval or transition behavior.",
+        "test_type":  "transition"
+    },
+    {
+        "test_id":  "A9-WF-024",
+        "source_id":  "WF-EL-03: Cancel Approved Leave",
+        "purpose":  "Verify the workflow disposition and semantics specified for WF-EL-03.",
+        "preconditions":  "The event or request described by the workflow is present.",
+        "action_or_input":  "Trigger WF-EL-03 according to the specification.",
+        "expected_result":  "The workflow is executed or excluded exactly as specified, without creating unsupported approval or transition behavior.",
+        "test_type":  "transition"
+    },
+    {
+        "test_id":  "A9-WF-025",
+        "source_id":  "WF-EL-04: Extend Ongoing Leave",
+        "purpose":  "Verify the workflow disposition and semantics specified for WF-EL-04.",
+        "preconditions":  "The event or request described by the workflow is present.",
+        "action_or_input":  "Trigger WF-EL-04 according to the specification.",
+        "expected_result":  "The workflow is executed or excluded exactly as specified, without creating unsupported approval or transition behavior.",
+        "test_type":  "transition"
+    },
+    {
+        "test_id":  "A9-WF-026",
+        "source_id":  "WF-EL-05: Resume Duty and Close Leave",
+        "purpose":  "Verify the workflow disposition and semantics specified for WF-EL-05.",
+        "preconditions":  "The event or request described by the workflow is present.",
+        "action_or_input":  "Trigger WF-EL-05 according to the specification.",
+        "expected_result":  "The workflow is executed or excluded exactly as specified, without creating unsupported approval or transition behavior.",
+        "test_type":  "transition"
+    },
+    {
+        "test_id":  "A9-WF-027",
+        "source_id":  "WF-EL-06: Record Offline-Sanctioned Leave",
+        "purpose":  "Verify the workflow disposition and semantics specified for WF-EL-06.",
+        "preconditions":  "The event or request described by the workflow is present.",
+        "action_or_input":  "Trigger WF-EL-06 according to the specification.",
+        "expected_result":  "The workflow is executed or excluded exactly as specified, without creating unsupported approval or transition behavior.",
+        "test_type":  "transition"
+    }
+]

@@ -162,8 +162,21 @@ def vacation_periods_for_years(
     # except IamUnavailable:
     #     raise
 
-    # Fallback for local development / missing dependency:
-    return []
+    from modules.leave.models import VacationPeriodConfig
+
+    requested_years = {int(year) for year in years}
+    result = []
+    for period in VacationPeriodConfig.objects.filter(is_active=True).order_by("start_date"):
+        if period.start_date.year not in requested_years and period.end_date.year not in requested_years:
+            continue
+        result.append(
+            {
+                "start_date": period.start_date.isoformat(),
+                "end_date": period.end_date.isoformat(),
+                "is_valid_for_leave": True,
+            }
+        )
+    return result
 
 
 def is_date_in_vacation_period(date_str: str, year: int) -> bool:
@@ -176,13 +189,14 @@ def is_date_in_vacation_period(date_str: str, year: int) -> bool:
     Returns:
         True if the date is within a published vacation period for the year.
     """
-    # TODO: Implement actual logic using Academic Calendar data
-    # periods = get_vacation_periods(year)
-    # for p in periods:
-    #     start, end = parse_dates(p['start_date'], p['end_date'])
-    #     if start <= date_str <= end:
-    #         return True
-    return False
+    from datetime import date
+
+    target = date.fromisoformat(date_str)
+    return any(
+        period["is_valid_for_leave"]
+        and period["start_date"] <= target.isoformat() <= period["end_date"]
+        for period in vacation_periods_for_years([year])
+    )
 
 
 def restricted_holidays_for_years(years: Sequence[int]) -> list[dict]:
@@ -207,8 +221,16 @@ def restricted_holidays_for_years(years: Sequence[int]) -> list[dict]:
     # except IamUnavailable:
     #     raise
 
-    # Fallback for local development / missing dependency:
-    return []
+    from modules.leave.models import HolidayRHCalendar
+
+    requested_years = {int(year) for year in years}
+    result = []
+    for calendar in HolidayRHCalendar.objects.filter(is_published=True).order_by("-effective_from"):
+        for value in calendar.restricted_holidays or []:
+            iso_date = value.isoformat() if hasattr(value, "isoformat") else str(value)
+            if int(iso_date[:4]) in requested_years:
+                result.append({"date": iso_date, "name": calendar.name})
+    return result
 
 
 def is_date_restricted_holiday(date_str: str, year: int) -> bool:
@@ -232,8 +254,11 @@ def is_date_restricted_holiday(date_str: str, year: int) -> bool:
 def parse_date(date_str: str) -> tuple[int, int, int]:
     """Parse a date string into (year, month, day)."""
     try:
-        return map(int, date_str.split("-"))
-    except ValueError:
+        values = tuple(map(int, date_str.split("-")))
+        if len(values) != 3:
+            raise ValueError
+        return values
+    except (TypeError, ValueError):
         raise ValueError(f"Invalid date format: {date_str}")
 
 

@@ -1,0 +1,371 @@
+﻿[
+    {
+        "test_id":  "A9-UC-001",
+        "source_id":  "EL-UC-001 Main Success Scenario",
+        "purpose":  "Verify the main success flow for EL-UC-001 â€” Apply for Leave.",
+        "preconditions":  "The actors, configured policy/hierarchy, and prerequisite records described by the specification are available.",
+        "action_or_input":  "M1. Employee starts a new leave application. M2. Employee selects the leave category and requested period and enters purpose/reason and other required information. M3. System captures Station Leave details in the same application when applicable. M4. System validates category eligibility, entitlement/balance, counting/calendar conditions, and impermissible overlap. M5. When responsibility coverage is required, Employee nominates one eligible substitute. M6. Employee submits the application. M7. If substitute consent is required, System places the request in Awaiting Substitute Response; otherwise it routes the request to Unit Head review. A Director-applicant follows the self-sanction path.",
+        "expected_result":  "The use case completes according to its specified main success scenario for EL-UC-001.",
+        "test_type":  "functional"
+    },
+    {
+        "test_id":  "A9-UC-002",
+        "source_id":  "EL-UC-001 Alternative / Exception Flows A1 Validation fails: identify the failed condition and do not allow progression",
+        "purpose":  "Verify the specified alternative or exception flow for EL-UC-001.",
+        "preconditions":  "The triggering condition described by the specification is present and the actor is authorized.",
+        "action_or_input":  "A1 Validation fails: identify the failed condition and do not allow progression.",
+        "expected_result":  "The system applies the specified alternative or exception behavior for EL-UC-001.",
+        "test_type":  "negative"
+    },
+    {
+        "test_id":  "A9-UC-003",
+        "source_id":  "EL-UC-001 Alternative / Exception Flows A2 Substitute nomination invalid: reject the nominee and allow another eligible nominee",
+        "purpose":  "Verify the specified alternative or exception flow for EL-UC-001.",
+        "preconditions":  "The triggering condition described by the specification is present and the actor is authorized.",
+        "action_or_input":  "A2 Substitute nomination invalid: reject the nominee and allow another eligible nominee.",
+        "expected_result":  "The system applies the specified alternative or exception behavior for EL-UC-001.",
+        "test_type":  "negative"
+    },
+    {
+        "test_id":  "A9-UC-004",
+        "source_id":  "EL-UC-001 Alternative / Exception Flows A3 After a substitute decline, the Employee may invoke EL-UC-019 to nominate a replacement or EL-UC-007 to withdraw",
+        "purpose":  "Verify the specified alternative or exception flow for EL-UC-001.",
+        "preconditions":  "The triggering condition described by the specification is present and the actor is authorized.",
+        "action_or_input":  "A3 After a substitute decline, the Employee may invoke EL-UC-019 to nominate a replacement or EL-UC-007 to withdraw.",
+        "expected_result":  "The system applies the specified alternative or exception behavior for EL-UC-001.",
+        "test_type":  "functional"
+    },
+    {
+        "test_id":  "A9-UC-005",
+        "source_id":  "EL-UC-002 Main Success Scenario",
+        "purpose":  "Verify the main success flow for EL-UC-002 â€” Respond to Substitute Request.",
+        "preconditions":  "The actors, configured policy/hierarchy, and prerequisite records described by the specification are available.",
+        "action_or_input":  "M1. Substitute opens the assigned responsibility request. M2. System presents the applicant, responsibility period, and relevant request context. M3. Substitute selects Accept or Decline. M4. System records the response. M5. If Accept, the consent gate is released and the request proceeds to Unit Head review; if Decline, the request becomes Applicant Action Required.",
+        "expected_result":  "The use case completes according to its specified main success scenario for EL-UC-002.",
+        "test_type":  "functional"
+    },
+    {
+        "test_id":  "A9-UC-006",
+        "source_id":  "EL-UC-002 Alternative / Exception Flows A1 If the request is no longer pending, System prevents a stale response",
+        "purpose":  "Verify the specified alternative or exception flow for EL-UC-002.",
+        "preconditions":  "The triggering condition described by the specification is present and the actor is authorized.",
+        "action_or_input":  "A1 If the request is no longer pending, System prevents a stale response.",
+        "expected_result":  "The system applies the specified alternative or exception behavior for EL-UC-002.",
+        "test_type":  "negative"
+    },
+    {
+        "test_id":  "A9-UC-007",
+        "source_id":  "EL-UC-003 Main Success Scenario",
+        "purpose":  "Verify the main success flow for EL-UC-003 â€” Review Leave-Related Request at Unit Head.",
+        "preconditions":  "The actors, configured policy/hierarchy, and prerequisite records described by the specification are available.",
+        "action_or_input":  "M1. Unit Head opens the assigned request and reviews the request context and available supporting information. M2. For a new CL/RH request, Unit Head records final Approve or Reject. M3. For higher-sanction new leave, cancellation of higher-sanction leave, or EL/COL/VL extension, Unit Head records Recommended or Not Recommended. M4. System records the outcome. M5. A Unit-Head-final outcome completes the decision; a recommendation outcome continues through the configured higher-sanction path.",
+        "expected_result":  "The use case completes according to its specified main success scenario for EL-UC-003.",
+        "test_type":  "functional"
+    },
+    {
+        "test_id":  "A9-UC-008",
+        "source_id":  "EL-UC-003 Alternative / Exception Flows A1 Director-applicant cases do not use the normal Unit Head path",
+        "purpose":  "Verify the specified alternative or exception flow for EL-UC-003.",
+        "preconditions":  "The triggering condition described by the specification is present and the actor is authorized.",
+        "action_or_input":  "A1 Director-applicant cases do not use the normal Unit Head path.",
+        "expected_result":  "The system applies the specified alternative or exception behavior for EL-UC-003.",
+        "test_type":  "negative"
+    },
+    {
+        "test_id":  "A9-UC-009",
+        "source_id":  "EL-UC-003 Alternative / Exception Flows A2 Not Recommended for higher-sanction contexts is not a final rejection",
+        "purpose":  "Verify the specified alternative or exception flow for EL-UC-003.",
+        "preconditions":  "The triggering condition described by the specification is present and the actor is authorized.",
+        "action_or_input":  "A2 Not Recommended for higher-sanction contexts is not a final rejection.",
+        "expected_result":  "The system applies the specified alternative or exception behavior for EL-UC-003.",
+        "test_type":  "functional"
+    },
+    {
+        "test_id":  "A9-UC-010",
+        "source_id":  "EL-UC-004 Main Success Scenario",
+        "purpose":  "Verify the main success flow for EL-UC-004 â€” Verify and Route Higher-Sanction Request.",
+        "preconditions":  "The actors, configured policy/hierarchy, and prerequisite records described by the specification are available.",
+        "action_or_input":  "M1. Establishment opens the routed work item. M2. System presents the request and resolved routing context. M3. Establishment performs the configured verification/routing checks. M4. System resolves/validates the next competent authority using current hierarchy configuration. M5. Establishment forwards the request to the resolved final Sanctioning Authority.",
+        "expected_result":  "The use case completes according to its specified main success scenario for EL-UC-004.",
+        "test_type":  "functional"
+    },
+    {
+        "test_id":  "A9-UC-011",
+        "source_id":  "EL-UC-004 Alternative / Exception Flows A1 If no Establishment step is configured, this use case is bypassed",
+        "purpose":  "Verify the specified alternative or exception flow for EL-UC-004.",
+        "preconditions":  "The triggering condition described by the specification is present and the actor is authorized.",
+        "action_or_input":  "A1 If no Establishment step is configured, this use case is bypassed.",
+        "expected_result":  "The system applies the specified alternative or exception behavior for EL-UC-004.",
+        "test_type":  "functional"
+    },
+    {
+        "test_id":  "A9-UC-012",
+        "source_id":  "EL-UC-004 Alternative / Exception Flows A2 If routing context is inconsistent or incomplete, do not forward until the inconsistency is resolved through authorized configuration/record handling",
+        "purpose":  "Verify the specified alternative or exception flow for EL-UC-004.",
+        "preconditions":  "The triggering condition described by the specification is present and the actor is authorized.",
+        "action_or_input":  "A2 If routing context is inconsistent or incomplete, do not forward until the inconsistency is resolved through authorized configuration/record handling.",
+        "expected_result":  "The system applies the specified alternative or exception behavior for EL-UC-004.",
+        "test_type":  "negative"
+    },
+    {
+        "test_id":  "A9-UC-013",
+        "source_id":  "EL-UC-005 Main Success Scenario",
+        "purpose":  "Verify the main success flow for EL-UC-005 â€” Make Final Sanctioning Decision.",
+        "preconditions":  "The actors, configured policy/hierarchy, and prerequisite records described by the specification are available.",
+        "action_or_input":  "M1. Authority opens the assigned request and reviews the request, recommendation, and available evidence. M2. Authority records Approve or Reject. M3. System records the final decision and notifies the employee. M4. For new-leave approval, System updates the leave record/account. M5. For cancellation approval, System marks the leave Cancelled and restores/adjusts deducted balance; cancellation rejection preserves the original approval. M6. For extension approval, System posts only the incremental additional period; extension rejection preserves the original approved leave.",
+        "expected_result":  "The use case completes according to its specified main success scenario for EL-UC-005.",
+        "test_type":  "functional"
+    },
+    {
+        "test_id":  "A9-UC-014",
+        "source_id":  "EL-UC-005 Alternative / Exception Flows A1 SCL purpose admissibility is decided by the applicable Sanctioning Authority; no separate encoded admissibility criterion is required",
+        "purpose":  "Verify the specified alternative or exception flow for EL-UC-005.",
+        "preconditions":  "The triggering condition described by the specification is present and the actor is authorized.",
+        "action_or_input":  "A1 SCL purpose admissibility is decided by the applicable Sanctioning Authority; no separate encoded admissibility criterion is required.",
+        "expected_result":  "The system applies the specified alternative or exception behavior for EL-UC-005.",
+        "test_type":  "functional"
+    },
+    {
+        "test_id":  "A9-UC-015",
+        "source_id":  "EL-UC-005 Alternative / Exception Flows A2 Director-as-applicant uses the Director-specific self-sanction path",
+        "purpose":  "Verify the specified alternative or exception flow for EL-UC-005.",
+        "preconditions":  "The triggering condition described by the specification is present and the actor is authorized.",
+        "action_or_input":  "A2 Director-as-applicant uses the Director-specific self-sanction path.",
+        "expected_result":  "The system applies the specified alternative or exception behavior for EL-UC-005.",
+        "test_type":  "functional"
+    },
+    {
+        "test_id":  "A9-UC-016",
+        "source_id":  "EL-UC-007 Main Success Scenario",
+        "purpose":  "Verify the main success flow for EL-UC-007 â€” Withdraw Pending Request.",
+        "preconditions":  "The actors, configured policy/hierarchy, and prerequisite records described by the specification are available.",
+        "action_or_input":  "M1. Employee selects the pending request and confirms withdrawal. M2. System validates that final approval has not occurred. M3. System makes the withdrawal effective immediately. M4. System terminates all remaining approval processing, prevents later approve/reject actions, and notifies concerned roles.",
+        "expected_result":  "The use case completes according to its specified main success scenario for EL-UC-007.",
+        "test_type":  "functional"
+    },
+    {
+        "test_id":  "A9-UC-017",
+        "source_id":  "EL-UC-007 Alternative / Exception Flows A1 If final approval already exists, withdrawal is unavailable; approved-leave cancellation applies where its preconditions hold",
+        "purpose":  "Verify the specified alternative or exception flow for EL-UC-007.",
+        "preconditions":  "The triggering condition described by the specification is present and the actor is authorized.",
+        "action_or_input":  "A1 If final approval already exists, withdrawal is unavailable; approved-leave cancellation applies where its preconditions hold.",
+        "expected_result":  "The system applies the specified alternative or exception behavior for EL-UC-007.",
+        "test_type":  "negative"
+    },
+    {
+        "test_id":  "A9-UC-018",
+        "source_id":  "EL-UC-008 Main Success Scenario",
+        "purpose":  "Verify the main success flow for EL-UC-008 â€” Request Cancellation of Approved Leave.",
+        "preconditions":  "The actors, configured policy/hierarchy, and prerequisite records described by the specification are available.",
+        "action_or_input":  "M1. Employee selects the approved leave and requests cancellation. M2. System validates that the leave has not started and that withdrawal is no longer the applicable mechanism. M3. System creates the cancellation request without editing the approved leave. M4. System routes the cancellation to the Unit Head and then through the same applicable hierarchy as the original leave.",
+        "expected_result":  "The use case completes according to its specified main success scenario for EL-UC-008.",
+        "test_type":  "functional"
+    },
+    {
+        "test_id":  "A9-UC-019",
+        "source_id":  "EL-UC-008 Alternative / Exception Flows A1 If leave has started, cancellation is unavailable; extension/resumption applies as relevant",
+        "purpose":  "Verify the specified alternative or exception flow for EL-UC-008.",
+        "preconditions":  "The triggering condition described by the specification is present and the actor is authorized.",
+        "action_or_input":  "A1 If leave has started, cancellation is unavailable; extension/resumption applies as relevant.",
+        "expected_result":  "The system applies the specified alternative or exception behavior for EL-UC-008.",
+        "test_type":  "negative"
+    },
+    {
+        "test_id":  "A9-UC-020",
+        "source_id":  "EL-UC-008 Alternative / Exception Flows A2 If cancellation is finally rejected, original approved leave remains unchanged",
+        "purpose":  "Verify the specified alternative or exception flow for EL-UC-008.",
+        "preconditions":  "The triggering condition described by the specification is present and the actor is authorized.",
+        "action_or_input":  "A2 If cancellation is finally rejected, original approved leave remains unchanged.",
+        "expected_result":  "The system applies the specified alternative or exception behavior for EL-UC-008.",
+        "test_type":  "functional"
+    },
+    {
+        "test_id":  "A9-UC-021",
+        "source_id":  "EL-UC-008 Alternative / Exception Flows A3 If cancellation is approved and revised leave is still needed, Employee submits a fresh leave application",
+        "purpose":  "Verify the specified alternative or exception flow for EL-UC-008.",
+        "preconditions":  "The triggering condition described by the specification is present and the actor is authorized.",
+        "action_or_input":  "A3 If cancellation is approved and revised leave is still needed, Employee submits a fresh leave application.",
+        "expected_result":  "The system applies the specified alternative or exception behavior for EL-UC-008.",
+        "test_type":  "functional"
+    },
+    {
+        "test_id":  "A9-UC-022",
+        "source_id":  "EL-UC-009 Main Success Scenario",
+        "purpose":  "Verify the main success flow for EL-UC-009 â€” Request Extension of Ongoing Leave.",
+        "preconditions":  "The actors, configured policy/hierarchy, and prerequisite records described by the specification are available.",
+        "action_or_input":  "M1. Employee enters the requested additional period and required information. M2. System validates eligibility, balance, calendar/counting conditions and other applicable rules. M3. When responsibility coverage is required, Employee nominates an eligible substitute and obtains consent through EL-UC-002. M4. System creates the extension request and routes it to Unit Head review and the configured higher-sanction path.",
+        "expected_result":  "The use case completes according to its specified main success scenario for EL-UC-009.",
+        "test_type":  "functional"
+    },
+    {
+        "test_id":  "A9-UC-023",
+        "source_id":  "EL-UC-009 Alternative / Exception Flows A1 Validation failure prevents the extension request from progressing",
+        "purpose":  "Verify the specified alternative or exception flow for EL-UC-009.",
+        "preconditions":  "The triggering condition described by the specification is present and the actor is authorized.",
+        "action_or_input":  "A1 Validation failure prevents the extension request from progressing.",
+        "expected_result":  "The system applies the specified alternative or exception behavior for EL-UC-009.",
+        "test_type":  "negative"
+    },
+    {
+        "test_id":  "A9-UC-024",
+        "source_id":  "EL-UC-009 Alternative / Exception Flows A2 Substitute decline invokes replacement handling through EL-UC-019; no approval routing occurs before required acceptance",
+        "purpose":  "Verify the specified alternative or exception flow for EL-UC-009.",
+        "preconditions":  "The triggering condition described by the specification is present and the actor is authorized.",
+        "action_or_input":  "A2 Substitute decline invokes replacement handling through EL-UC-019; no approval routing occurs before required acceptance.",
+        "expected_result":  "The system applies the specified alternative or exception behavior for EL-UC-009.",
+        "test_type":  "functional"
+    },
+    {
+        "test_id":  "A9-UC-025",
+        "source_id":  "EL-UC-010 Main Success Scenario",
+        "purpose":  "Verify the main success flow for EL-UC-010 â€” Submit Resumption of Duty.",
+        "preconditions":  "The actors, configured policy/hierarchy, and prerequisite records described by the specification are available.",
+        "action_or_input":  "M1. Employee opens the relevant leave record. M2. Employee enters actual resumption date and required resumption details. M3. System records the resumption submission and routes it to the applicable Sanctioning Authority for review.",
+        "expected_result":  "The use case completes according to its specified main success scenario for EL-UC-010.",
+        "test_type":  "functional"
+    },
+    {
+        "test_id":  "A9-UC-026",
+        "source_id":  "EL-UC-010 Alternative / Exception Flows A1 Resumption is outside this baseline for CL/RH/SCL as a formal reviewed process",
+        "purpose":  "Verify the specified alternative or exception flow for EL-UC-010.",
+        "preconditions":  "The triggering condition described by the specification is present and the actor is authorized.",
+        "action_or_input":  "A1 Resumption is outside this baseline for CL/RH/SCL as a formal reviewed process.",
+        "expected_result":  "The system applies the specified alternative or exception behavior for EL-UC-010.",
+        "test_type":  "functional"
+    },
+    {
+        "test_id":  "A9-UC-027",
+        "source_id":  "EL-UC-011 Main Success Scenario",
+        "purpose":  "Verify the main success flow for EL-UC-011 â€” Review Resumption.",
+        "preconditions":  "The actors, configured policy/hierarchy, and prerequisite records described by the specification are available.",
+        "action_or_input":  "M1. Authority reviews the submitted actual resumption date/details. M2. System compares actual resumption date with approved end date. M3. If dates match, Authority records review completion; no approved leave-period or balance adjustment is made. M4. If actual date is earlier or later, Authority confirms the review outcome and System records actual leave period, adjusts balance accordingly, and synchronizes relevant leave/attendance records.",
+        "expected_result":  "The use case completes according to its specified main success scenario for EL-UC-011.",
+        "test_type":  "functional"
+    },
+    {
+        "test_id":  "A9-UC-028",
+        "source_id":  "EL-UC-011 Alternative / Exception Flows A1 No generic \u0027close leave\u0027 state transition is asserted for normal resumption in this baseline",
+        "purpose":  "Verify the specified alternative or exception flow for EL-UC-011.",
+        "preconditions":  "The triggering condition described by the specification is present and the actor is authorized.",
+        "action_or_input":  "A1 No generic \u0027close leave\u0027 state transition is asserted for normal resumption in this baseline.",
+        "expected_result":  "The system applies the specified alternative or exception behavior for EL-UC-011.",
+        "test_type":  "negative"
+    },
+    {
+        "test_id":  "A9-UC-029",
+        "source_id":  "EL-UC-012 Main Success Scenario",
+        "purpose":  "Verify the main success flow for EL-UC-012 â€” View Leave Balances and History.",
+        "preconditions":  "The actors, configured policy/hierarchy, and prerequisite records described by the specification are available.",
+        "action_or_input":  "M1. Employee opens leave balance/history inquiry. M2. System displays current leave balances. M3. System displays accessible leave-account/request history including current request status and recorded final decisions.",
+        "expected_result":  "The use case completes according to its specified main success scenario for EL-UC-012.",
+        "test_type":  "functional"
+    },
+    {
+        "test_id":  "A9-UC-030",
+        "source_id":  "EL-UC-013 Main Success Scenario",
+        "purpose":  "Verify the main success flow for EL-UC-013 â€” Obtain Printable/Exportable Leave Application.",
+        "preconditions":  "The actors, configured policy/hierarchy, and prerequisite records described by the specification are available.",
+        "action_or_input":  "M1. Employee selects an accessible leave application. M2. Employee requests print/export representation. M3. System produces the representation for the selected application.",
+        "expected_result":  "The use case completes according to its specified main success scenario for EL-UC-013.",
+        "test_type":  "functional"
+    },
+    {
+        "test_id":  "A9-UC-031",
+        "source_id":  "EL-UC-014 Main Success Scenario",
+        "purpose":  "Verify the main success flow for EL-UC-014 â€” Maintain Policy and Hierarchy Configuration.",
+        "preconditions":  "The actors, configured policy/hierarchy, and prerequisite records described by the specification are available.",
+        "action_or_input":  "M1. Administrator opens the relevant configuration. M2. Administrator creates/revises policy parameters and/or hierarchy configuration. M3. System validates the configuration input and saves it as the current configured value. M4. Subsequent validation/routing uses the current configured values.",
+        "expected_result":  "The use case completes according to its specified main success scenario for EL-UC-014.",
+        "test_type":  "functional"
+    },
+    {
+        "test_id":  "A9-UC-032",
+        "source_id":  "EL-UC-014 Alternative / Exception Flows A1 This baseline has no policy draft/publish/effective-version lifecycle; do not create unpublished policy versions",
+        "purpose":  "Verify the specified alternative or exception flow for EL-UC-014.",
+        "preconditions":  "The triggering condition described by the specification is present and the actor is authorized.",
+        "action_or_input":  "A1 This baseline has no policy draft/publish/effective-version lifecycle; do not create unpublished policy versions.",
+        "expected_result":  "The system applies the specified alternative or exception behavior for EL-UC-014.",
+        "test_type":  "negative"
+    },
+    {
+        "test_id":  "A9-UC-033",
+        "source_id":  "EL-UC-015 Main Success Scenario",
+        "purpose":  "Verify the main success flow for EL-UC-015 â€” Maintain and Publish Holiday/RH Calendar.",
+        "preconditions":  "The actors, configured policy/hierarchy, and prerequisite records described by the specification are available.",
+        "action_or_input":  "M1. Administrator creates or revises the calendar. M2. System validates calendar data. M3. Administrator publishes the replacement calendar. M4. System makes the published calendar effective for subsequent date/RH validation.",
+        "expected_result":  "The use case completes according to its specified main success scenario for EL-UC-015.",
+        "test_type":  "functional"
+    },
+    {
+        "test_id":  "A9-UC-034",
+        "source_id":  "EL-UC-015 Alternative / Exception Flows A1 Until a replacement is published, the currently effective published calendar remains governing",
+        "purpose":  "Verify the specified alternative or exception flow for EL-UC-015.",
+        "preconditions":  "The triggering condition described by the specification is present and the actor is authorized.",
+        "action_or_input":  "A1 Until a replacement is published, the currently effective published calendar remains governing.",
+        "expected_result":  "The system applies the specified alternative or exception behavior for EL-UC-015.",
+        "test_type":  "functional"
+    },
+    {
+        "test_id":  "A9-UC-035",
+        "source_id":  "EL-UC-016 Main Success Scenario",
+        "purpose":  "Verify the main success flow for EL-UC-016 â€” Record Already-Sanctioned Offline Leave.",
+        "preconditions":  "The actors, configured policy/hierarchy, and prerequisite records described by the specification are available.",
+        "action_or_input":  "M1. Administrator identifies the employee and sanctioned leave. M2. Administrator enters the sanctioned leave details and sanction/reference evidence. M3. System validates the entry for record consistency. M4. System records the leave and updates relevant leave balance/history. M5. System does not create a second approval workflow.",
+        "expected_result":  "The use case completes according to its specified main success scenario for EL-UC-016.",
+        "test_type":  "functional"
+    },
+    {
+        "test_id":  "A9-UC-036",
+        "source_id":  "EL-UC-016 Alternative / Exception Flows A1 If sanction/reference evidence or record-consistency validation is insufficient, do not complete synchronization",
+        "purpose":  "Verify the specified alternative or exception flow for EL-UC-016.",
+        "preconditions":  "The triggering condition described by the specification is present and the actor is authorized.",
+        "action_or_input":  "A1 If sanction/reference evidence or record-consistency validation is insufficient, do not complete synchronization.",
+        "expected_result":  "The system applies the specified alternative or exception behavior for EL-UC-016.",
+        "test_type":  "negative"
+    },
+    {
+        "test_id":  "A9-UC-037",
+        "source_id":  "EL-UC-017 Main Success Scenario",
+        "purpose":  "Verify the main success flow for EL-UC-017 â€” Maintain Authorized Leave Records.",
+        "preconditions":  "The actors, configured policy/hierarchy, and prerequisite records described by the specification are available.",
+        "action_or_input":  "M1. Administrator selects the relevant leave record. M2. Administrator performs an authorized maintenance/correction action. M3. System validates authorization and record consistency. M4. System saves the permitted record change and preserves audit/history as implemented.",
+        "expected_result":  "The use case completes according to its specified main success scenario for EL-UC-017.",
+        "test_type":  "functional"
+    },
+    {
+        "test_id":  "A9-UC-038",
+        "source_id":  "EL-UC-017 Alternative / Exception Flows A1 If the attempted change would constitute a new sanctioning decision, this maintenance use case must not be used",
+        "purpose":  "Verify the specified alternative or exception flow for EL-UC-017.",
+        "preconditions":  "The triggering condition described by the specification is present and the actor is authorized.",
+        "action_or_input":  "A1 If the attempted change would constitute a new sanctioning decision, this maintenance use case must not be used.",
+        "expected_result":  "The system applies the specified alternative or exception behavior for EL-UC-017.",
+        "test_type":  "functional"
+    },
+    {
+        "test_id":  "A9-UC-039",
+        "source_id":  "EL-UC-018 Main Success Scenario",
+        "purpose":  "Verify the main success flow for EL-UC-018 â€” Configure Workflow SLA Thresholds.",
+        "preconditions":  "The actors, configured policy/hierarchy, and prerequisite records described by the specification are available.",
+        "action_or_input":  "M1. Administrator opens SLA configuration. M2. Administrator specifies reminder and escalation thresholds for applicable actionable task classes. M3. System validates and saves the configuration. M4. Subsequent event-triggered SLA processing uses the configured thresholds.",
+        "expected_result":  "The use case completes according to its specified main success scenario for EL-UC-018.",
+        "test_type":  "functional"
+    },
+    {
+        "test_id":  "A9-UC-040",
+        "source_id":  "EL-UC-019 Main Success Scenario",
+        "purpose":  "Verify the main success flow for EL-UC-019 â€” Nominate Replacement Substitute After Decline.",
+        "preconditions":  "The actors, configured policy/hierarchy, and prerequisite records described by the specification are available.",
+        "action_or_input":  "M1. Employee chooses to replace the declined substitute. M2. Employee nominates one replacement. M3. System validates replacement eligibility. M4. System assigns a fresh substitute request and places the leave/extension request in Awaiting Substitute Response.",
+        "expected_result":  "The use case completes according to its specified main success scenario for EL-UC-019.",
+        "test_type":  "functional"
+    },
+    {
+        "test_id":  "A9-UC-041",
+        "source_id":  "EL-UC-019 Alternative / Exception Flows A1 Employee may instead withdraw the pending request where withdrawal is applicable",
+        "purpose":  "Verify the specified alternative or exception flow for EL-UC-019.",
+        "preconditions":  "The triggering condition described by the specification is present and the actor is authorized.",
+        "action_or_input":  "A1 Employee may instead withdraw the pending request where withdrawal is applicable.",
+        "expected_result":  "The system applies the specified alternative or exception behavior for EL-UC-019.",
+        "test_type":  "functional"
+    }
+]

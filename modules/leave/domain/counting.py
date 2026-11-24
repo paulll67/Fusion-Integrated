@@ -22,7 +22,7 @@ from decimal import Decimal
 from enum import Enum
 
 from modules.directory.services.sync import ensure_users_cached
-from modules.leave.contracts import EmployeeDTO, HolidayRHCalendar
+from modules.leave.contracts import EmployeeDTO, restricted_holidays_for_years
 from modules.leave.models import LeaveAccount, LeavePolicyConfig
 
 
@@ -128,8 +128,13 @@ class LeaveCountingService:
         - Continuous (EL, COL, VL): Includes weekends and holidays
         - Exclusive (CL, SCL, RH): Counts only working days
         """
-        delta = end_date - start_date
-        total_days = Decimal(str(delta.days))
+        if start_date > end_date:
+            raise ValueError("start_date must be on or before end_date")
+
+        # Both continuous and exclusive leave intervals are inclusive of their
+        # endpoints.  The previous implementation under-counted every
+        # continuous request by one day.
+        total_days = Decimal(str((end_date - start_date).days + 1))
 
         counting_rule = self.get_counting_rule(category)
 
@@ -157,12 +162,13 @@ class LeaveCountingService:
 
         # Check against currently effective published holiday/RH calendar
         try:
-            calendar = HolidayRHCalendar.get_current_effective()
-            if calendar and day in calendar.holidays:
+            holidays = restricted_holidays_for_years([day.year])
+            if any(item.get("date") == day.isoformat() for item in holidays):
                 return False
         except Exception:
-            # If calendar unavailable, assume working day (fail-safe)
-            pass
+            # Calendar availability is an integration concern; counting remains
+            # deterministic for local callers when that service is unavailable.
+            return True
 
         return True
 
@@ -203,12 +209,12 @@ class LeaveCountingService:
         for existing in existing_leaves:
             # Check overlap logic
             # CL half-days on the same date are non-overlapping if they occupy different halves
-            proposed_start_date = proposed_start.date()
-            existing_start_date = existing.start_date.date()
-            existing_end_date = existing.end_date.date()
+            proposed_start_date = proposed_start
+            existing_start_date = existing.start_date
+            existing_end_date = existing.end_date
 
             # Determine if dates match
-            if proposed_start_date != existing_start_date:
+            if proposed_start_date > existing_end_date or proposed_start_date < existing_start_date:
                 continue  # Different date, no overlap
 
             # Check half-day types
@@ -232,12 +238,12 @@ class LeaveCountingService:
         Assumes 8-day year. First half: days 1-4, Second half: days 5-8.
         Simplified logic based on start day of month.
         """
-        # Heuristic: If start day is <= 4th day of the month (approx), it's first half
-        # This is a simplified implementation; exact logic depends on specific CL rules
-        if end - start < timedelta(days=1):
-            return HalfDayType.FIRST_HALF
-        if end - start >= timedelta(days=1):
-            return HalfDayType.SECOND_HALF
+        # A half-day request is represented by a same-day interval.  The
+        # caller supplies the half through the request boundary convention;
+        # retain the deterministic legacy convention for compatibility while
+        # rejecting multi-day intervals from the half-day exception.
+        if start != end:
+            raise ValueError("half-day overlap checks require a same-day interval")
         return HalfDayType.FIRST_HALF
 
     def validate_substitute_eligibility(
@@ -282,7 +288,7 @@ class LeaveCountingService:
             existing_end = existing.end_date.date()
 
             # Check overlap
-            if responsibility_start < existing_end and responsibility_end > existing_start:
+            if responsibility_start <= existing_end and responsibility_end >= existing_start:
                 return False
 
         return True
@@ -296,8 +302,10 @@ class LeaveCountingService:
 
         BR-EL-007/008: 2 VL : 1 EL conversion ratio.
         """
-        # Convert VL to EL at 2:1 ratio
-        el_credit = vl_balance * Decimal("2")
+        if vl_balance < 0:
+            raise ValueError("vl_balance cannot be negative")
+        # Two unused VL days create one EL day, including fractional credit.
+        el_credit = vl_balance / Decimal("2")
         return el_credit
 
     def get_leave_account_balance(
@@ -335,11 +343,6 @@ class LeaveCountingService:
         entitlement = self.get_entitlement(employee, category)
         current_balance = self.get_leave_account_balance(employee.user_id, category)
 
-        if current_balance >= entitlement:
-            return True, ""
-
-        # If balance is less than entitlement, check if it's a partial request
-        # For simplicity, assume full request unless specified otherwise
         days_needed = self.calculate_days_in_interval(start_date, end_date, category)
 
         if current_balance >= days_needed:
